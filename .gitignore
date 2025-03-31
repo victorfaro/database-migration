@@ -1,0 +1,5 @@
+.env
+**/data.sql
+**/manual_schema_dump.sql
+**/*.dat
+**/*.gz
