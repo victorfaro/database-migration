@@ -21,3 +21,8 @@ create-roles:
 	@PGPASSWORD=$(RDS_ADMIN_PASSWORD) psql -h $(RDS_ADMIN_HOST) -U $(RDS_ADMIN_USER) -p $(RDS_ADMIN_PORT) -d $(RDS_ADMIN_DATABASE) \
 		-f backup-data-final/roles.sql
 
+.PHONY: initialize
+initialize:
+	make -f Makefile.InitialSetup create-databases
+	make -f Makefile.InitialSetup create-roles
+	make -f Makefile.InitialSetup create-schema

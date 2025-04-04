@@ -73,3 +73,18 @@ restore_prod_education_all:
 	make -f Makefile.Final pg_restore_schema_all_institutions_jobs
 	make -f Makefile.Final pg_restore_data_all_institutions_jobs
 	make -f Makefile.Final pg_restore_transfer_institutions_data
+
+
+.PHONY: pg_dump_institutions_target
+pg_dump_institutions_target:
+	@PGPASSWORD=$(RDS_ADMIN_PASSWORD) pg_dump -h $(RDS_ADMIN_HOST) \
+		-U $(RDS_ADMIN_USER) -p $(RDS_ADMIN_PORT) -d $(RDS_DATABASE) \
+		--data-only \
+		--no-acl \
+		-j 3 \
+		-F d \
+		--no-owner \
+		-t institutions \
+		-f ./dump/sal_request/data
+
+
