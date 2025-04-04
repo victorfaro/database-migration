@@ -70,9 +70,9 @@ pg_restore_transfer_institutions_data:
 
 .PHONY: restore_prod_education_all
 restore_prod_education_all:
-	make -f Makefile.Final pg_restore_schema_all_institutions_jobs
-	make -f Makefile.Final pg_restore_data_all_institutions_jobs
-	make -f Makefile.Final pg_restore_transfer_institutions_data
+	make -f Final.make pg_restore_schema_all_institutions_jobs
+	make -f Final.make pg_restore_data_all_institutions_jobs
+	make -f Final.make pg_restore_transfer_institutions_data
 
 
 .PHONY: pg_dump_institutions_target
