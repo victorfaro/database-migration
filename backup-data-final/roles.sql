@@ -1,0 +1,7 @@
+CREATE ROLE dbowner NOLOGIN;
+
+CREATE ROLE dbwriter WITH PASSWORD 'nJwbirC03lxKoHX';
+
+CREATE ROLE dbreader WITH PASSWORD 'e5XHdFT4OCMZp9E';
+
+GRANT dbowner TO postgres;
