@@ -58,6 +58,7 @@ pg_dump_data_public_jobs:
 		--table mock_user \
 		--table notes \
 		--table tags \
+		--table starred_insights \
 		-f ./dump/public/data
 
 
