@@ -111,20 +111,23 @@ liquibase:
 
 .PHONY: transfer-scripts
 transfer-scripts:
-	$(eval FILES = Makefile Makefile.Final Makefile.InitialSetup Makefile.ProdEducation)
-	$(foreach file, $(FILES), scp -i migration-database.pem $(file) ubuntu@ec2-54-163-30-37.compute-1.amazonaws.com:/home/ubuntu/workspace;)
+	$(eval FILES = Makefile Final.make InitialSetup.make ProdEducation.make)
+	$(foreach file, $(FILES), scp $(file) migration-box:/home/ubuntu/workspace;)
+
+	$(eval FILES = .env)
+	$(foreach file, $(FILES), scp $(file) migration-box:/home/ubuntu/workspace;)
 
 	$(eval FILES =  ./backup-data-final/database.sql ./backup-data-final/roles.sql ./backup-data-final/schemas.sql)
-	$(foreach file, $(FILES), scp -i migration-database.pem $(file) ubuntu@ec2-54-163-30-37.compute-1.amazonaws.com:/home/ubuntu/workspace/backup-data-final;)
+	$(foreach file, $(FILES), scp $(file) migration-box:/home/ubuntu/workspace/backup-data-final;)
 
 	$(eval FILES = install-docker.sh .env initiate-backup.sh initiate-restore.sh ./backup-data/post-processing-ddl.sql)
-	$(foreach file, $(FILES), scp -i migration-database.pem $(file) ubuntu@ec2-54-163-30-37.compute-1.amazonaws.com:/home/ubuntu/workspace;)
+	$(foreach file, $(FILES), scp $(file) migration-box:/home/ubuntu/workspace;)
 	
 	$(eval FILES = ./backup-data/post-processing-ddl.sql ./backup-data/pre-schema.sql)
-	$(foreach file, $(FILES), scp -i migration-database.pem $(file) ubuntu@ec2-54-163-30-37.compute-1.amazonaws.com:/home/ubuntu/workspace/backup-data;)
+	$(foreach file, $(FILES), scp $(file) migration-box:/home/ubuntu/workspace/backup-data;)
 
 	$(eval FILES = ./dump/prod_education/transformation.sql ./dump/prod_education/institutions_table.sql)
-	$(foreach file, $(FILES), scp -i migration-database.pem $(file) ubuntu@ec2-54-163-30-37.compute-1.amazonaws.com:/home/ubuntu/workspace/dump/prod_education;)
+	$(foreach file, $(FILES), scp $(file) migration-box:/home/ubuntu/workspace/dump/prod_education;)
 
 
 .PHONY: running-psl
