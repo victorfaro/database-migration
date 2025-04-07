@@ -84,6 +84,11 @@ pg_restore_data_public_jobs:
 		--data-only \
 		./dump/public/data
 
+.PHONY: pg_restore_custom_types
+pg_restore_custom_types:
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/public/custom-types.sql.sql
+
 .PHONY: pg_restore_transfer_data
 pg_restore_transfer_data:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
@@ -98,6 +103,7 @@ dump_public_all:
 
 .PHONY: restore_public_all
 restore_public_all:
+	make -f Public.make pg_restore_custom_types
 	make -f Public.make pg_restore_schema_public_jobs
 	make -f Public.make pg_restore_data_public_jobs
 	make -f Public.make pg_restore_transfer_data
