@@ -30,7 +30,7 @@ check:
 prep-tmp-dir:
 	mkdir -p ./backup-data
 
-	
+
 .PHONY: backup-roles
 backup-roles:
 	supabase db dump --db-url $(PO_CONN_STRING) -f ./backup-data/roles.sql --role-only
@@ -44,7 +44,7 @@ backup-schemas:
 .PHONY: backup-data
 backup-data:
 	supabase db dump --db-url $(PO_CONN_STRING) -f ./backup-data/data.sql --use-copy --data-only
-	
+
 
 .PHONY: backup-all
 backup-all: prep-tmp-dir
@@ -54,7 +54,7 @@ backup-all: prep-tmp-dir
 	make backup-data
 	echo "Finished at $(shell date)"
 
-	
+
 .PHONY: run-psql-supabase
 run-psql-supabase:
 	docker run -it postgres:14-alpine psql -U $(PO_SUPABASE_USER) -h $(PO_SUPABASE_HOST) -d $(PO_SUPABASE_DBNAME) -p $(PO_SUPABASE_PORT)
@@ -64,17 +64,21 @@ run-psql-supabase:
 run-psql-pgbounce:
 	docker run -it --network host --rm postgres:14-alpine psql -U $(PO_SUPABASE_USER) -h localhost -d $(PO_SUPABASE_DBNAME) -p 5432
 
+
 .PHONY: connect-to-rds
 connect-to-rds:
 	docker run -it --network host --rm postgres:14-alpine psql -U postgres -h $(RDS_HOST) -d $(RDS_DATABASE) -p $(RDS_PORT)
+
 
 .PHONY: connect-to-pgbouncer
 connect-to-pgbouncer:
 	docker run -it --network host --rm postgres:14-alpine psql -U $(RDS_USER) -h localhost -d rds_session -p 5432
 
+
 .PHONY: connect-to-proxy-gateway
 connect-to-proxy-gateway:
 	docker run -it --rm postgres:14-alpine psql -U $(RDS_USER) -h proxy-gateway.bravo.nationgraph.com -d rds_session -p 1801
+
 
 .PHONY: restore
 restore:
