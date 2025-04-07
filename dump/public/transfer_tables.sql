@@ -57,12 +57,25 @@ CREATE TABLE app.custom_columns (
 	description text NULL,
 	keyword_config jsonb NULL,
 	output_format app."Output Format" NULL,
-	updated_at timestamp NULL,
+	modified_at timestamp NULL,
 	column_name text NULL,
 	keywords jsonb NULL,
 	start_date date NULL,
-	end_date date NULL
-);
+	end_date date NULL,
+	CONSTRAINT custom_columns_pkey PRIMARY KEY (id),
+	CONSTRAINT custom_columns_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspace(id) ON DELETE CASCADE ON UPDATE CASCADE
+) PARTITION BY HASH (id);
+
+-- Create 8 partitions for the custom_columns table
+-- This will distribute data evenly across partitions based on a hash of the id
+CREATE TABLE app.custom_columns_p0 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 0);
+CREATE TABLE app.custom_columns_p1 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 1);
+CREATE TABLE app.custom_columns_p2 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 2);
+CREATE TABLE app.custom_columns_p3 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 3);
+CREATE TABLE app.custom_columns_p4 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 4);
+CREATE TABLE app.custom_columns_p5 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 5);
+CREATE TABLE app.custom_columns_p6 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 6);
+CREATE TABLE app.custom_columns_p7 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 7);
 
 CREATE TABLE app.enrichments (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
