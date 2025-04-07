@@ -61,8 +61,8 @@ pg_dump_data_public_jobs:
 		-f ./dump/public/data
 
 
-.PHONY: pg_restore_schema_public_jobs
-pg_restore_schema_public_jobs:
+.PHONY: pg_restore_schema_public_pre_data_jobs
+pg_restore_schema_public_pre_data_jobs:
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		--disable-triggers \
 		--if-exists \
@@ -71,6 +71,7 @@ pg_restore_schema_public_jobs:
 		-F d \
 		--use-set-session-authorization \
 		--no-owner \
+		--section pre-data \
 		./dump/public/schema
 
 .PHONY: pg_restore_data_public_jobs
@@ -107,7 +108,7 @@ dump_public_all:
 restore_public_all:
 	@echo "Started at time: $$(date)"
 	make -f Public.make pg_restore_custom_types
-	make -f Public.make pg_restore_schema_public_jobs
+	make -f Public.make pg_restore_schema_public_pre_data_jobs
 	make -f Public.make pg_restore_data_public_jobs
 	make -f Public.make pg_restore_transfer_data
 	@echo "Finished at time: $$(date)"
