@@ -20,7 +20,7 @@ export RDS_CONN=postgresql://$(RDS_USER):$(RDS_PASSWORD)@$(RDS_HOST):$(RDS_PORT)
 .PHONY: pg_dump_schema_public_jobs
 pg_dump_schema_public_jobs:
 	@rm -rf ./dump/public/schema
-	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
+	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) PGOPTIONS='--statement-timeout=0' pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--schema-only \
 		--no-acl \
 		-j 3 \
@@ -42,7 +42,7 @@ pg_dump_schema_public_jobs:
 .PHONY: pg_dump_data_public_jobs
 pg_dump_data_public_jobs:
 	@rm -rf ./dump/public/data
-	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
+	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) PGOPTIONS='--statement-timeout=0' pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--data-only \
 		--no-acl \
 		-j 3 \
@@ -97,16 +97,20 @@ pg_restore_transfer_data:
 		
 .PHONY: dump_public_all
 dump_public_all:
+	@echo "Started at time: $$(date)"
 	make -f Public.make pg_dump_schema_public_jobs
 	make -f Public.make pg_dump_data_public_jobs
+	@echo "Finished at time: $$(date)"
 
 
 .PHONY: restore_public_all
 restore_public_all:
+	@echo "Started at time: $$(date)"
 	make -f Public.make pg_restore_custom_types
 	make -f Public.make pg_restore_schema_public_jobs
 	make -f Public.make pg_restore_data_public_jobs
 	make -f Public.make pg_restore_transfer_data
+	@echo "Finished at time: $$(date)"
 
 
 .PHONY: pg_dump_institutions_target
