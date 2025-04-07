@@ -93,14 +93,26 @@ CREATE TABLE app.enrichments (
 );
 
 
--- former job table. must be renamed to "tasks"
-CREATE TABLE app.job (
+CREATE TABLE app.tasks (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
 	created_at timestamptz DEFAULT now() NOT NULL,
 	completed_at timestamp NULL,
 	response_payload json NULL,
-	custom_cell_id uuid NULL
-);
+	custom_cell_id uuid NOT NULL,
+	CONSTRAINT tasks_pkey PRIMARY KEY (id),
+	CONSTRAINT tasks_custom_cell_id_fkey FOREIGN KEY (custom_cell_id) REFERENCES app.cells(id) ON DELETE CASCADE ON UPDATE CASCADE
+) PARTITION BY HASH (custom_cell_id);
+
+-- Create 8 partitions for the tasks table
+-- This will distribute data evenly across partitions based on a hash of the custom_cell_id
+CREATE TABLE app.tasks_p0 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 0);
+CREATE TABLE app.tasks_p1 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 1);
+CREATE TABLE app.tasks_p2 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 2);
+CREATE TABLE app.tasks_p3 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 3);
+CREATE TABLE app.tasks_p4 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 4);
+CREATE TABLE app.tasks_p5 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 5);
+CREATE TABLE app.tasks_p6 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 6);
+CREATE TABLE app.tasks_p7 PARTITION OF app.tasks FOR VALUES WITH (MODULUS 8, REMAINDER 7);
 
 CREATE TABLE app.user (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
