@@ -80,14 +80,16 @@ CREATE TABLE app.custom_columns_p7 PARTITION OF app.custom_columns FOR VALUES WI
 CREATE TABLE app.enrichments (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
 	user_email text NOT NULL,
-	"type" app."Enrichment Type" NOT NULL,
+	"type" app."Enrichment Type" NULL,
 	status app."Enrichment Status" NULL,
 	created_at timestamp DEFAULT now() NOT NULL,
-	updated_at timestamp DEFAULT now() NULL,
+	modified_at timestamp NULL,
 	request_text text NULL,
 	"result" text NULL,
-	institution_id text NOT NULL,
-	workspace_id uuid NOT NULL
+	institution_id text NULL,
+	workspace_id uuid NULL,
+	CONSTRAINT enrichments_pkey PRIMARY KEY (id),
+	CONSTRAINT enrichments_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspace(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
