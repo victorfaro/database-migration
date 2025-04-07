@@ -19,6 +19,7 @@ export RDS_CONN=postgresql://$(RDS_USER):$(RDS_PASSWORD)@$(RDS_HOST):$(RDS_PORT)
 
 .PHONY: pg_dump_schema_all_institutions_jobs
 pg_dump_schema_all_institutions_jobs:
+	rm -rf ./dump/prod_education/schema/*
 	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--schema-only \
 		--no-acl \
@@ -30,6 +31,7 @@ pg_dump_schema_all_institutions_jobs:
 
 .PHONY: pg_dump_data_all_institutions_jobs
 pg_dump_data_all_institutions_jobs:
+	rm -rf ./dump/prod_education/data/*
 	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--data-only \
 		--no-acl \
@@ -42,6 +44,7 @@ pg_dump_data_all_institutions_jobs:
 
 .PHONY: pg_restore_schema_all_institutions_jobs
 pg_restore_schema_all_institutions_jobs:
+	rm -rf ./dump/prod_education/schema/*
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		--disable-triggers \
 		--if-exists \
@@ -54,6 +57,7 @@ pg_restore_schema_all_institutions_jobs:
 
 .PHONY: pg_restore_data_all_institutions_jobs
 pg_restore_data_all_institutions_jobs:
+	rm -rf ./dump/prod_education/data/*
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		--disable-triggers \
 		-j 3 \
