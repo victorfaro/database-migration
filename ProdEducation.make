@@ -44,7 +44,6 @@ pg_dump_data_all_institutions_jobs:
 
 .PHONY: pg_restore_schema_all_institutions_jobs
 pg_restore_schema_all_institutions_jobs:
-	rm -rf ./dump/prod_education/schema/*
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		--disable-triggers \
 		--if-exists \
@@ -57,7 +56,6 @@ pg_restore_schema_all_institutions_jobs:
 
 .PHONY: pg_restore_data_all_institutions_jobs
 pg_restore_data_all_institutions_jobs:
-	rm -rf ./dump/prod_education/data/*
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		--disable-triggers \
 		-j 3 \
@@ -71,6 +69,13 @@ pg_restore_data_all_institutions_jobs:
 pg_restore_transfer_institutions_data:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		-f ./dump/prod_education/institutions_table.sql
+
+		
+.PHONY: dump_prod_education_all
+dump_prod_education_all:
+	make -f Final.make pg_dump_schema_all_institutions_jobs
+	make -f Final.make pg_dump_data_all_institutions_jobs
+
 
 .PHONY: restore_prod_education_all
 restore_prod_education_all:
