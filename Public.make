@@ -27,11 +27,11 @@ pg_dump_schema_public_jobs:
 		-F d \
 		--no-owner \
 		--schema public \
-		--table mock_workpaces \
-		--table mock_workbook_institutions \
+		--table mock_workspaces \
+		--table mock_workbook_institution \
 		--table mock_custom_cell \
 		--table mock_custom_columns \
-		--table mock_enrichement \
+		--table mock_enrichment \
 		--table mock_job \
 		--table mock_user \
 		--table notes \
