@@ -87,7 +87,7 @@ pg_restore_data_public_jobs:
 .PHONY: pg_restore_custom_types
 pg_restore_custom_types:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
-		-f ./dump/public/custom-types.sql.sql
+		-f ./dump/public/custom-types.sql
 
 .PHONY: pg_restore_transfer_data
 pg_restore_transfer_data:
