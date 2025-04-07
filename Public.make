@@ -80,9 +80,9 @@ dump_public_all:
 
 .PHONY: restore_public_all
 restore_public_all:
-	make -f Public.make pg_restore_schema_all_institutions_jobs
-	make -f Public.make pg_restore_data_all_institutions_jobs
-	make -f Public.make pg_restore_transfer_institutions_data
+	make -f Public.make pg_restore_schema_public_jobs
+	make -f Public.make pg_restore_data_public_jobs
+	make -f Public.make pg_restore_transfer_data
 
 
 .PHONY: pg_dump_institutions_target
