@@ -64,6 +64,7 @@ pg_dump_data_public_jobs:
 .PHONY: pg_restore_schema_public_pre_data_jobs
 pg_restore_schema_public_pre_data_jobs:
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		--section pre-data \
 		--disable-triggers \
 		--if-exists \
 		--clean \
@@ -71,7 +72,6 @@ pg_restore_schema_public_pre_data_jobs:
 		-F d \
 		--use-set-session-authorization \
 		--no-owner \
-		--section pre-data \
 		./dump/public/schema
 
 .PHONY: pg_restore_data_public_jobs
