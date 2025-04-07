@@ -27,13 +27,13 @@ pg_dump_schema_public_jobs:
 		-F d \
 		--no-owner \
 		--schema public \
+		--table mock_workpaces \
+		--table mock_workbook_institutions \
 		--table mock_custom_cell \
 		--table mock_custom_columns \
 		--table mock_enrichement \
 		--table mock_job \
 		--table mock_user \
-		--table mock_workbook_institutions \
-		--table mock_workpaces \
 		--table notes \
 		--table tags \
 		-f ./dump/public/schema
@@ -49,13 +49,13 @@ pg_dump_data_public_jobs:
 		-F d \
 		--no-owner \
 		--schema public \
+		--table mock_workpaces \
+		--table mock_workbook_institutions \
 		--table mock_custom_cell \
 		--table mock_custom_columns \
 		--table mock_enrichement \
 		--table mock_job \
 		--table mock_user \
-		--table mock_workbook_institutions \
-		--table mock_workpaces \
 		--table notes \
 		--table tags \
 		-f ./dump/public/data
