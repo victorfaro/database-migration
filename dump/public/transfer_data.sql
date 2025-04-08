@@ -303,3 +303,35 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.starred_insights;
     RAISE NOTICE 'Transferred % rows from public.starred_insights to app.starred_insights', row_count;
 END $$;
+
+-- Data Transfer Script: public.notes to app.notes
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.notes;
+-- Insert data from public.notes to app.notes
+INSERT INTO app.notes (
+    id,
+    created_at,
+    "content",
+    institution_id,
+    custom_column_id,
+    modified_at        -- Maps from updated_at
+)
+SELECT 
+    id,
+    created_at,
+    "content",
+    institution_id,
+    custom_column_id,
+    updated_at AS modified_at
+FROM 
+    public.notes;
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.notes;
+    RAISE NOTICE 'Transferred % rows from public.notes to app.notes', row_count;
+END $$;
