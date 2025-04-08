@@ -167,7 +167,8 @@ CREATE TABLE app.workspace_institutions (
 	is_deleted boolean DEFAULT false NOT NULL,
 	deleted_at timestamptz DEFAULT now() NULL,
 	CONSTRAINT workspace_institutions_pkey PRIMARY KEY (id),
-	CONSTRAINT workspace_institutions_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspace(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT workspace_institutions_workspace_id_institution_id_key UNIQUE (workspace_id, institution_id),
+	CONSTRAINT workspace_institutions_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspaces(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT workspace_institutions_institution_id_fkey FOREIGN KEY (institution_id) REFERENCES app.institutions(unique_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) PARTITION BY HASH (workspace_id);
 
