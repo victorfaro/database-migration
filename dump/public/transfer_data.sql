@@ -190,3 +190,46 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.enrichments;
     RAISE NOTICE 'Transferred % rows from public.mock_enrichment to app.enrichments', row_count;
 END $$;
+
+-- Data Transfer Script: public.mock_workspaces to app.workspaces
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.workspaces;
+-- Insert data from public.mock_workspaces to app.workspaces
+-- Only insert rows where user_id is not null (required in target schema)
+INSERT INTO app.workspaces (
+    id,
+    created_at,
+    is_starred,
+    modified_at,      -- Maps from updated_at
+    "name",
+    user_id,
+    payload,
+    ui_metadata,
+    is_deleted,       -- New field with default false
+    deleted_at        -- New field defaulting to now() when needed
+)
+SELECT 
+    id,
+    created_at,
+    is_starred,
+    updated_at AS modified_at,
+    "name",
+    user_id,
+    payload,
+    ui_metadata,
+    false,           -- Set is_deleted to false for all migrated records
+    NULL             -- Set deleted_at to NULL for non-deleted records
+FROM 
+    public.mock_workspaces
+WHERE 
+    user_id IS NOT NULL;  -- Filter out rows with NULL user_id as it's required in target
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.workspaces;
+    RAISE NOTICE 'Transferred % rows from public.mock_workspaces to app.workspaces', row_count;
+END $$;
