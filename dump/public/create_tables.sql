@@ -8,7 +8,7 @@ CREATE TABLE app.cells (
 	"content" jsonb NULL,
 	prev_content jsonb NULL,
 	modified_at timestamptz DEFAULT now() NULL,
-	CONSTRAINT cells_pkey PRIMARY KEY (id)
+	CONSTRAINT cells_pkey PRIMARY KEY (id, institution_id)
 ) PARTITION BY RANGE (institution_id);
 
 -- Create partitions for ranges of institution_id values
@@ -94,7 +94,7 @@ CREATE TABLE app.tasks (
 	completed_at timestamp NULL,
 	response_payload json NULL,
 	custom_cell_id uuid NOT NULL,
-	CONSTRAINT tasks_pkey PRIMARY KEY (id)
+	CONSTRAINT tasks_pkey PRIMARY KEY (id, custom_cell_id)
 ) PARTITION BY HASH (custom_cell_id);
 
 CREATE TABLE app.user (
@@ -114,7 +114,7 @@ CREATE TABLE app.workspace_institutions (
 	created_at timestamptz DEFAULT now() NOT NULL,
 	is_deleted boolean DEFAULT false NOT NULL,
 	deleted_at timestamptz DEFAULT now() NULL,
-	CONSTRAINT workspace_institutions_pkey PRIMARY KEY (id),
+	CONSTRAINT workspace_institutions_pkey PRIMARY KEY (id, workspace_id),
 	CONSTRAINT workspace_institutions_workspace_id_institution_id_key UNIQUE (workspace_id, institution_id)
 ) PARTITION BY HASH (workspace_id);
 
