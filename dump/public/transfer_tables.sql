@@ -169,10 +169,10 @@ CREATE TABLE app.workspace_institutions (
 	CONSTRAINT workspace_institutions_pkey PRIMARY KEY (id),
 	CONSTRAINT workspace_institutions_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspace(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT workspace_institutions_institution_id_fkey FOREIGN KEY (institution_id) REFERENCES app.institutions(unique_id) ON DELETE CASCADE ON UPDATE CASCADE
-) PARTITION BY HASH (id);
+) PARTITION BY HASH (workspace_id);
 
 -- Create 8 partitions for the workspace_institutions table
--- This will distribute data evenly across partitions based on a hash of the id
+-- This will distribute data evenly across partitions based on a hash of the workspace_id
 CREATE TABLE app.workspace_institutions_p0 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 0);
 CREATE TABLE app.workspace_institutions_p1 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 1);
 CREATE TABLE app.workspace_institutions_p2 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 2);
