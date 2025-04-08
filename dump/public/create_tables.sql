@@ -9,6 +9,24 @@ DROP TABLE IF EXISTS app.workspaces CASCADE;
 DROP TABLE IF EXISTS app.notes CASCADE;
 DROP TABLE IF EXISTS app.starred_insights CASCADE;
 DROP TABLE IF EXISTS app.tags CASCADE;
+DROP TABLE IF EXISTS app.institutions CASCADE;
+
+-- Create the institutions table
+CREATE TABLE app.institutions (
+	unique_id text NOT NULL,
+	source_id int8 NULL,
+	"name" text NULL,
+	state text NULL,
+	county text NULL,
+	city text NULL,
+	street text NULL,
+	state_county text NULL,
+	state_city text NULL,
+	population float8 NULL,
+	source_table text NULL,
+	"label" text NULL,
+	CONSTRAINT institutions_pkey PRIMARY KEY (unique_id)
+);
 
 -- Create the cells table with HASH partitioning
 CREATE TABLE app.cells (
