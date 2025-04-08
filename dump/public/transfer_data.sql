@@ -233,3 +233,37 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.workspaces;
     RAISE NOTICE 'Transferred % rows from public.mock_workspaces to app.workspaces', row_count;
 END $$;
+
+-- Data Transfer Script: public.mock_user to app.user
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.user;
+-- Insert data from public.mock_user to app.user
+INSERT INTO app.user (
+    id,
+    auth0_id,
+    email,
+    first_name,
+    last_name,
+    created_at,
+    "domain"
+)
+SELECT 
+    id,
+    auth0_id,
+    email,
+    first_name,
+    last_name,
+    created_at,
+    "domain"
+FROM 
+    public.mock_user;
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.user;
+    RAISE NOTICE 'Transferred % rows from public.mock_user to app.user', row_count;
+END $$;
