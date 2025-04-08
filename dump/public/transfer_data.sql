@@ -335,3 +335,39 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.notes;
     RAISE NOTICE 'Transferred % rows from public.notes to app.notes', row_count;
 END $$;
+
+-- Data Transfer Script: public.tags to app.tags
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.tags;
+-- Insert data from public.tags to app.tags
+INSERT INTO app.tags (
+    id,
+    created_at,
+    hexcode,          -- New field, will be NULL
+    label,            -- New field, will be NULL
+    user_id,          -- New field, required in target
+    institution_id,
+    custom_column_id, -- NOT NULL in source, nullable in target
+    "content"
+)
+SELECT 
+    id,
+    created_at,
+    NULL AS hexcode,
+    NULL AS label,
+    'system' AS user_id,  -- Set a default value for required field
+    institution_id,
+    custom_column_id,
+    "content"
+FROM 
+    public.tags;
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.tags;
+    RAISE NOTICE 'Transferred % rows from public.tags to app.tags', row_count;
+END $$;
