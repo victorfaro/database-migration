@@ -267,3 +267,39 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.user;
     RAISE NOTICE 'Transferred % rows from public.mock_user to app.user', row_count;
 END $$;
+
+-- Data Transfer Script: public.starred_insights to app.starred_insights
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.starred_insights;
+-- Insert data from public.starred_insights to app.starred_insights
+INSERT INTO app.starred_insights (
+    created_at,
+    id,
+    institution_id,    -- NOT NULL in source, nullable in target
+    "content",
+    workspace_id,
+    "type",
+    column_id,
+    cell_id
+)
+SELECT 
+    created_at,
+    id,
+    institution_id,
+    "content",
+    workspace_id,
+    "type",
+    column_id,
+    cell_id
+FROM 
+    public.starred_insights;
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.starred_insights;
+    RAISE NOTICE 'Transferred % rows from public.starred_insights to app.starred_insights', row_count;
+END $$;
