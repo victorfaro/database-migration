@@ -1,3 +1,16 @@
+-- Drop all tables if they exist to ensure a clean slate
+DROP TABLE IF EXISTS app.cells CASCADE;
+DROP TABLE IF EXISTS app.custom_columns CASCADE;
+DROP TABLE IF EXISTS app.enrichments CASCADE;
+DROP TABLE IF EXISTS app.tasks CASCADE;
+DROP TABLE IF EXISTS app.user CASCADE;
+DROP TABLE IF EXISTS app.workspace_institutions CASCADE;
+DROP TABLE IF EXISTS app.workspaces CASCADE;
+DROP TABLE IF EXISTS app.notes CASCADE;
+DROP TABLE IF EXISTS app.starred_insights CASCADE;
+DROP TABLE IF EXISTS app.tags CASCADE;
+
+-- Create the cells table with HASH partitioning
 CREATE TABLE app.cells (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
 	created_at timestamptz DEFAULT now() NOT NULL,
@@ -12,7 +25,6 @@ CREATE TABLE app.cells (
 ) PARTITION BY HASH (institution_id);
 
 -- Create 8 partitions for the cells table
--- This will distribute data evenly across partitions based on a hash of the institution_id
 CREATE TABLE app.cells_p0 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 0);
 CREATE TABLE app.cells_p1 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 1);
 CREATE TABLE app.cells_p2 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 2);
