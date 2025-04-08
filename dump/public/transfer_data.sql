@@ -60,12 +60,12 @@ SELECT
     id,
     created_at,
     workspace_id,
-    column_type,
-    data_source,
-    rerun_frequency,
+    column_type::app."Custom Column Types",  -- Cast to the correct type
+    data_source::app."Data Source",          -- Cast to the correct type
+    rerun_frequency::app."Rerun Frequency",  -- Cast to the correct type
     description,
     keyword_config,
-    output_format,
+    output_format::app."Output Format",      -- Cast to the correct type
     updated_at AS modified_at,
     column_name,
     keywords,
@@ -88,6 +88,7 @@ END $$;
 
 TRUNCATE TABLE app.tasks;
 -- Insert data from public.mock_job to app.tasks
+-- Only insert rows where custom_cell_id is not null
 INSERT INTO app.tasks (
     id,
     created_at,
@@ -102,7 +103,9 @@ SELECT
     response_payload,
     custom_cell_id
 FROM 
-    public.mock_job;
+    public.mock_job
+WHERE 
+    custom_cell_id IS NOT NULL;  -- Filter out rows with NULL custom_cell_id
 
 -- Log the number of rows transferred
 DO $$
