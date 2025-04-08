@@ -1,6 +1,6 @@
 -- Data Transfer Script: public.mock_custom_cell to app.cells
 -- This script transforms and loads data from the old table structure to the new one
-
+TRUNCATE TABLE app.cells;
 -- Insert data from public.mock_custom_cell to app.cells
 INSERT INTO app.cells (
     id,
@@ -38,6 +38,7 @@ END $$;
 -- Data Transfer Script: public.mock_custom_columns to app.custom_columns
 -- This script transforms and loads data from the old table structure to the new one
 
+TRUNCATE TABLE app.custom_columns;
 -- Insert data from public.mock_custom_columns to app.custom_columns
 INSERT INTO app.custom_columns (
     id,
@@ -80,4 +81,34 @@ DECLARE
 BEGIN
     SELECT COUNT(*) INTO row_count FROM app.custom_columns;
     RAISE NOTICE 'Transferred % rows from public.mock_custom_columns to app.custom_columns', row_count;
+END $$;
+
+-- Data Transfer Script: public.mock_job to app.tasks
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.tasks;
+-- Insert data from public.mock_job to app.tasks
+INSERT INTO app.tasks (
+    id,
+    created_at,
+    completed_at,
+    response_payload,
+    custom_cell_id
+)
+SELECT 
+    id,
+    created_at,
+    completed_at,
+    response_payload,
+    custom_cell_id
+FROM 
+    public.mock_job;
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.tasks;
+    RAISE NOTICE 'Transferred % rows from public.mock_job to app.tasks', row_count;
 END $$;
