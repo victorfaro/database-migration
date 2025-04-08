@@ -371,3 +371,50 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.tags;
     RAISE NOTICE 'Transferred % rows from public.tags to app.tags', row_count;
 END $$;
+
+-- Data Transfer Script: public.institutions to app.institutions
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.institutions;
+-- Insert data from public.institutions to app.institutions
+-- Only insert rows where unique_id is not null (required in target schema)
+INSERT INTO app.institutions (
+    unique_id,
+    source_id,
+    "name",
+    state,
+    county,
+    city,
+    street,
+    state_county,
+    state_city,
+    population,
+    source_table,
+    "label"
+)
+SELECT 
+    unique_id,
+    source_id,
+    "name",
+    state,
+    county,
+    city,
+    street,
+    state_county,
+    state_city,
+    population,
+    source_table,
+    "label"
+FROM 
+    public.institutions
+WHERE 
+    unique_id IS NOT NULL;  -- Filter out rows with NULL unique_id as it's required in target
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.institutions;
+    RAISE NOTICE 'Transferred % rows from public.institutions to app.institutions', row_count;
+END $$;
