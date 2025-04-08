@@ -150,3 +150,43 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.workspace_institutions;
     RAISE NOTICE 'Transferred % rows from public.mock_workbook_institution to app.workspace_institutions', row_count;
 END $$;
+
+-- Data Transfer Script: public.mock_enrichment to app.enrichments
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.enrichments;
+-- Insert data from public.mock_enrichment to app.enrichments
+INSERT INTO app.enrichments (
+    id,
+    user_email,
+    "type",            -- Need to convert from public."Enrichment Type" to app."Enrichment Type"
+    status,            -- Need to convert from public."Enrichment Status" to app."Enrichment Status"
+    created_at,
+    modified_at,       -- Maps from updated_at
+    request_text,
+    "result",
+    institution_id,    -- Now nullable in target
+    workspace_id       -- Now nullable in target
+)
+SELECT 
+    id,
+    user_email,
+    "type"::text::app."Enrichment Type",      -- Convert through text
+    status::text::app."Enrichment Status",    -- Convert through text
+    created_at,
+    updated_at AS modified_at,
+    request_text,
+    "result",
+    institution_id,
+    workspace_id
+FROM 
+    public.mock_enrichment;
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.enrichments;
+    RAISE NOTICE 'Transferred % rows from public.mock_enrichment to app.enrichments', row_count;
+END $$;
