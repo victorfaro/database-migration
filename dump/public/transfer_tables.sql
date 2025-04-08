@@ -203,9 +203,10 @@ CREATE TABLE app.notes (
 	"content" jsonb NULL,
 	institution_id text NOT NULL,
 	custom_column_id uuid NOT NULL,
-	updated_at timestamptz DEFAULT now() NULL
+	modified_at timestamptz DEFAULT now() NULL,
+	CONSTRAINT notes_pkey PRIMARY KEY (id),
+	CONSTRAINT notes_custom_column_id_fkey FOREIGN KEY (custom_column_id) REFERENCES app.custom_columns(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 CREATE TABLE app.starred_insights (
 	created_at timestamptz DEFAULT now() NOT NULL,
