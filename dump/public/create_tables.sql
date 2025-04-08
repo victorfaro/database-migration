@@ -83,7 +83,7 @@ CREATE TABLE app.tasks (
 	completed_at timestamp NULL,
 	response_payload json NULL,
 	custom_cell_id uuid NOT NULL,
-	CONSTRAINT tasks_pkey PRIMARY KEY (id, custom_cell_id)
+	CONSTRAINT tasks_pkey PRIMARY KEY (id, custom_cell_id, created_at)
 ) PARTITION BY HASH (custom_cell_id);
 
 CREATE TABLE app.user (
