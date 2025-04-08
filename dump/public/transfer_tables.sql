@@ -223,3 +223,16 @@ CREATE TABLE app.starred_insights (
 	CONSTRAINT starred_insights_cell_id_fkey FOREIGN KEY (cell_id) REFERENCES app.cells(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE app.tags (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	created_at timestamptz DEFAULT now() NOT NULL,
+	hexcode text NULL,
+	label text NULL,
+	user_id text NOT NULL,
+	institution_id text NULL,
+	custom_column_id uuid NULL,
+	"content" jsonb NULL,
+	CONSTRAINT tags_pkey PRIMARY KEY (id),
+	CONSTRAINT tags_custom_column_id_fkey FOREIGN KEY (custom_column_id) REFERENCES app.custom_columns(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
