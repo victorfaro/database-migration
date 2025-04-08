@@ -36,6 +36,7 @@ pg_dump_schema_public_jobs:
 		--table mock_user \
 		--table notes \
 		--table tags \
+		--table starred_insights \
 		-f ./dump/public/schema
 
 
