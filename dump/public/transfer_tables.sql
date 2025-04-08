@@ -210,11 +210,14 @@ CREATE TABLE app.notes (
 CREATE TABLE app.starred_insights (
 	created_at timestamptz DEFAULT now() NOT NULL,
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
-	institution_id text NOT NULL,
+	institution_id text NULL,
 	"content" jsonb NULL,
 	workspace_id uuid NULL,
 	"type" text NULL,
 	column_id uuid NULL,
 	cell_id uuid NULL,
+	CONSTRAINT starred_insights_pkey PRIMARY KEY (id),
+	CONSTRAINT starred_insights_column_id_fkey FOREIGN KEY (column_id) REFERENCES app.custom_columns(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT starred_insights_cell_id_fkey FOREIGN KEY (cell_id) REFERENCES app.cells(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
