@@ -8,9 +8,7 @@ CREATE TABLE app.cells (
 	"content" jsonb NULL,
 	prev_content jsonb NULL,
 	modified_at timestamptz DEFAULT now() NULL,
-	CONSTRAINT cells_pkey PRIMARY KEY (id),
-	CONSTRAINT cells_custom_column_id_fkey FOREIGN KEY (custom_column_id) REFERENCES app.custom_columns(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT cells_institution_id_fkey FOREIGN KEY (institution_id) REFERENCES app.institutions(unique_id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT cells_pkey PRIMARY KEY (id)
 ) PARTITION BY RANGE (institution_id);
 
 -- Create partitions for ranges of institution_id values
@@ -62,8 +60,7 @@ CREATE TABLE app.custom_columns (
 	keywords jsonb NULL,
 	start_date date NULL,
 	end_date date NULL,
-	CONSTRAINT custom_columns_pkey PRIMARY KEY (id),
-	CONSTRAINT custom_columns_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspace(id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT custom_columns_pkey PRIMARY KEY (id)
 ) PARTITION BY HASH (id);
 
 -- Create 8 partitions for the custom_columns table
@@ -88,10 +85,8 @@ CREATE TABLE app.enrichments (
 	"result" text NULL,
 	institution_id text NULL,
 	workspace_id uuid NULL,
-	CONSTRAINT enrichments_pkey PRIMARY KEY (id),
-	CONSTRAINT enrichments_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspace(id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT enrichments_pkey PRIMARY KEY (id)
 );
-
 
 CREATE TABLE app.tasks (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -99,8 +94,7 @@ CREATE TABLE app.tasks (
 	completed_at timestamp NULL,
 	response_payload json NULL,
 	custom_cell_id uuid NOT NULL,
-	CONSTRAINT tasks_pkey PRIMARY KEY (id),
-	CONSTRAINT tasks_custom_cell_id_fkey FOREIGN KEY (custom_cell_id) REFERENCES app.cells(id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT tasks_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE app.user (
@@ -113,7 +107,6 @@ CREATE TABLE app.user (
 	"domain" text NULL
 );
 
-
 CREATE TABLE app.workspace_institutions (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
 	workspace_id uuid NOT NULL,
@@ -122,9 +115,7 @@ CREATE TABLE app.workspace_institutions (
 	is_deleted boolean DEFAULT false NOT NULL,
 	deleted_at timestamptz DEFAULT now() NULL,
 	CONSTRAINT workspace_institutions_pkey PRIMARY KEY (id),
-	CONSTRAINT workspace_institutions_workspace_id_institution_id_key UNIQUE (workspace_id, institution_id),
-	CONSTRAINT workspace_institutions_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspaces(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT workspace_institutions_institution_id_fkey FOREIGN KEY (institution_id) REFERENCES app.institutions(unique_id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT workspace_institutions_workspace_id_institution_id_key UNIQUE (workspace_id, institution_id)
 ) PARTITION BY HASH (workspace_id);
 
 -- Create 8 partitions for the workspace_institutions table
@@ -150,8 +141,7 @@ CREATE TABLE app.workspaces (
 	is_deleted boolean DEFAULT false NOT NULL,
 	deleted_at timestamp DEFAULT now() NULL,
 	CONSTRAINT workspaces_pkey PRIMARY KEY (id)
-) ;
-
+);
 
 CREATE TABLE app.notes (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -160,8 +150,7 @@ CREATE TABLE app.notes (
 	institution_id text NOT NULL,
 	custom_column_id uuid NOT NULL,
 	modified_at timestamptz DEFAULT now() NULL,
-	CONSTRAINT notes_pkey PRIMARY KEY (id),
-	CONSTRAINT notes_custom_column_id_fkey FOREIGN KEY (custom_column_id) REFERENCES app.custom_columns(id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT notes_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE app.starred_insights (
@@ -173,9 +162,7 @@ CREATE TABLE app.starred_insights (
 	"type" text NULL,
 	column_id uuid NULL,
 	cell_id uuid NULL,
-	CONSTRAINT starred_insights_pkey PRIMARY KEY (id),
-	CONSTRAINT starred_insights_column_id_fkey FOREIGN KEY (column_id) REFERENCES app.custom_columns(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT starred_insights_cell_id_fkey FOREIGN KEY (cell_id) REFERENCES app.cells(id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT starred_insights_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE app.tags (
@@ -187,7 +174,6 @@ CREATE TABLE app.tags (
 	institution_id text NULL,
 	custom_column_id uuid NULL,
 	"content" jsonb NULL,
-	CONSTRAINT tags_pkey PRIMARY KEY (id),
-	CONSTRAINT tags_custom_column_id_fkey FOREIGN KEY (custom_column_id) REFERENCES app.custom_columns(id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT tags_pkey PRIMARY KEY (id)
 );
 
