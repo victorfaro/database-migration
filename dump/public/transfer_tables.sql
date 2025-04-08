@@ -159,13 +159,28 @@ CREATE TABLE app.user (
 );
 
 
-CREATE TABLE app.workspace_institution (
+CREATE TABLE app.workspace_institutions (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
-	workspace_id uuid NULL,
+	workspace_id uuid NOT NULL,
 	institution_id text NOT NULL,
-	created_at timestamptz DEFAULT now() NULL
-);
+	created_at timestamptz DEFAULT now() NOT NULL,
+	is_deleted boolean DEFAULT false NOT NULL,
+	deleted_at timestamptz DEFAULT now() NULL,
+	CONSTRAINT workspace_institutions_pkey PRIMARY KEY (id),
+	CONSTRAINT workspace_institutions_workspace_id_fkey FOREIGN KEY (workspace_id) REFERENCES app.workspace(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT workspace_institutions_institution_id_fkey FOREIGN KEY (institution_id) REFERENCES app.institutions(unique_id) ON DELETE CASCADE ON UPDATE CASCADE
+) PARTITION BY HASH (id);
 
+-- Create 8 partitions for the workspace_institutions table
+-- This will distribute data evenly across partitions based on a hash of the id
+CREATE TABLE app.workspace_institutions_p0 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 0);
+CREATE TABLE app.workspace_institutions_p1 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 1);
+CREATE TABLE app.workspace_institutions_p2 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 2);
+CREATE TABLE app.workspace_institutions_p3 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 3);
+CREATE TABLE app.workspace_institutions_p4 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 4);
+CREATE TABLE app.workspace_institutions_p5 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 5);
+CREATE TABLE app.workspace_institutions_p6 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 6);
+CREATE TABLE app.workspace_institutions_p7 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 7);
 
 CREATE TABLE app.workspace (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
