@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS app.notes CASCADE;
 DROP TABLE IF EXISTS app.starred_insights CASCADE;
 DROP TABLE IF EXISTS app.tags CASCADE;
 DROP TABLE IF EXISTS app.institutions CASCADE;
+DROP TABLE IF EXISTS app.webtoken CASCADE;
 
 -- Create the institutions table
 CREATE TABLE app.institutions (
@@ -182,5 +183,14 @@ CREATE TABLE app.tags (
 	custom_column_id uuid NULL,
 	"content" jsonb NULL,
 	CONSTRAINT tags_pkey PRIMARY KEY (id)
+);
+
+-- Create the webtoken table
+CREATE TABLE app.webtoken (
+	sub text NOT NULL,
+	email text NOT NULL,
+	organization_id text NULL,
+	raw_token text NOT NULL,
+	CONSTRAINT webtoken_pkey PRIMARY KEY (sub)
 );
 
