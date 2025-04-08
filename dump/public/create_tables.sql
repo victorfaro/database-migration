@@ -95,7 +95,7 @@ CREATE TABLE app.tasks (
 	response_payload json NULL,
 	custom_cell_id uuid NOT NULL,
 	CONSTRAINT tasks_pkey PRIMARY KEY (id)
-);
+) PARTITION BY HASH (custom_cell_id);
 
 CREATE TABLE app.user (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
