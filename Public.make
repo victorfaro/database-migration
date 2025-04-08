@@ -94,12 +94,18 @@ pg_restore_custom_types:
 .PHONY: pg_restore_create_tables
 pg_restore_create_tables:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		--disable-triggers \
 		-f ./dump/public/create_tables.sql
 
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		-f ./dump/public/tasks_partitions.sql
 
-		
+
+.PHONY: pg_restore_transfer_data
+pg_restore_transfer_data:
+	echo "wip"
+
+
 .PHONY: dump_public_all
 dump_public_all:
 	@echo "Started at time: $$(date)"
