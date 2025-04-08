@@ -60,12 +60,12 @@ SELECT
     id,
     created_at,
     workspace_id,
-    column_type,       -- No casting needed, PostgreSQL will handle the conversion
-    data_source,       -- No casting needed, PostgreSQL will handle the conversion
-    rerun_frequency,   -- No casting needed, PostgreSQL will handle the conversion
+    column_type::text::app."Custom Column Types",  -- Convert through text
+    data_source::text::app."Data Source",          -- Convert through text
+    rerun_frequency::text::app."Rerun Frequency",  -- Convert through text
     description,
     keyword_config,
-    output_format,     -- No casting needed, PostgreSQL will handle the conversion
+    output_format::text::app."Output Format",      -- Convert through text
     updated_at AS modified_at,
     column_name,
     keywords,
