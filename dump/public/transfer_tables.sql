@@ -182,16 +182,19 @@ CREATE TABLE app.workspace_institutions_p5 PARTITION OF app.workspace_institutio
 CREATE TABLE app.workspace_institutions_p6 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 6);
 CREATE TABLE app.workspace_institutions_p7 PARTITION OF app.workspace_institutions FOR VALUES WITH (MODULUS 8, REMAINDER 7);
 
-CREATE TABLE app.workspace (
+CREATE TABLE app.workspaces (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
 	created_at timestamp NOT NULL,
-	is_starred bool DEFAULT false NULL,
-	updated_at timestamp NULL,
+	is_starred boolean DEFAULT false NULL,
+	modified_at timestamp NULL,
 	"name" text NULL,
-	user_id text NULL,
+	user_id text NOT NULL,
 	payload jsonb NOT NULL,
-	ui_metadata jsonb NULL
-);
+	ui_metadata jsonb NULL,
+	is_deleted boolean DEFAULT false NOT NULL,
+	deleted_at timestamp DEFAULT now() NULL,
+	CONSTRAINT workspaces_pkey PRIMARY KEY (id)
+) ;
 
 
 CREATE TABLE app.notes (
