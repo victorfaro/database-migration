@@ -91,10 +91,13 @@ pg_restore_custom_types:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		-f ./dump/public/custom-types.sql
 
-.PHONY: pg_restore_transfer_data
-pg_restore_transfer_data:
+.PHONY: pg_restore_create_tables
+pg_restore_create_tables:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
-		-f ./dump/public/transfer_tables.sql
+		-f ./dump/public/create_tables.sql
+
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/public/tasks_partitions.sql
 
 		
 .PHONY: dump_public_all
@@ -111,7 +114,7 @@ restore_public_all:
 	make -f Public.make pg_restore_custom_types
 	make -f Public.make pg_restore_schema_public_pre_data_jobs
 	make -f Public.make pg_restore_data_public_jobs
-	make -f Public.make pg_restore_transfer_data
+	make -f Public.make pg_restore_create_tables
 	@echo "Finished at time: $$(date)"
 
 
