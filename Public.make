@@ -103,7 +103,8 @@ pg_restore_create_tables:
 
 .PHONY: pg_restore_transfer_data
 pg_restore_transfer_data:
-	echo "wip"
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/public/transfer_data.sql
 
 
 .PHONY: dump_public_all
