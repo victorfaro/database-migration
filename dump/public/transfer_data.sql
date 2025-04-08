@@ -115,3 +115,38 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.tasks;
     RAISE NOTICE 'Transferred % rows from public.mock_job to app.tasks', row_count;
 END $$;
+
+-- Data Transfer Script: public.mock_workbook_institution to app.workspace_institutions
+-- This script transforms and loads data from the old table structure to the new one
+
+TRUNCATE TABLE app.workspace_institutions;
+-- Insert data from public.mock_workbook_institution to app.workspace_institutions
+-- Only insert rows where workspace_id is not null (required in target schema)
+INSERT INTO app.workspace_institutions (
+    id,
+    workspace_id,
+    institution_id,
+    created_at,
+    is_deleted,        -- New field with default false
+    deleted_at         -- New field defaulting to now() when needed
+)
+SELECT 
+    id,
+    workspace_id,
+    institution_id,
+    COALESCE(created_at, now()),  -- Handle NULL created_at values
+    false,                        -- Set is_deleted to false for all migrated records
+    NULL                         -- Set deleted_at to NULL for non-deleted records
+FROM 
+    public.mock_workbook_institution
+WHERE 
+    workspace_id IS NOT NULL;     -- Filter out rows with NULL workspace_id as it's required in target
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.workspace_institutions;
+    RAISE NOTICE 'Transferred % rows from public.mock_workbook_institution to app.workspace_institutions', row_count;
+END $$;
