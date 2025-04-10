@@ -50,7 +50,7 @@ pg_dump_data_public_jobs:
 		-F d \
 		--no-owner \
 		--schema public \
-		--table mock_workpaces \
+		--table mock_workspaces \
 		--table mock_workbook_institutions \
 		--table mock_custom_cell \
 		--table mock_custom_columns \
