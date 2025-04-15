@@ -114,14 +114,13 @@ This roadmap outlines strategic initiatives, practices, and tooling to enhance d
 
 ## 🗕️ Roadmap Plan
 
-| Quarter       | Initiative                                                                                     |
+| Quarter       | Priority Order                                                                                 |
 |---------------|-----------------------------------------------------------------------------------------------|
-| Q2 (Apr–Jun)  | Helm configs moved to monorepo, DB migration repo, GitOps practices, Instrumentation + alerts setup |
-| Q3 (Jul–Sep)  | Onboarding rollout, Automate release versioning pipeline, Set up VPN                          |
+| Q2 (Apr–Jun)  | 1. Linting & Testing<br>2. DB Migration Repo<br>3. Helm Configs Consolidation<br>4. GitOps Practices |
+| Q3 (Jul–Sep)  | 1. Onboarding Rollout<br>2. Automate Release Versioning Pipeline<br>3. VPN Setup                  |
 | Q4 (Oct–Dec)  | Analytics behind VPN, DB subnet restriction, Secrets rotation setup, Analytics DB setup       |
 | Q1 (next year)| Migrate deployment pipeline to ArgoCD                                                          |
 
 ---
 
 *This roadmap is a living document. Adjustments are expected as team needs evolve.*
-
