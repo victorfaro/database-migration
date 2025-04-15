@@ -1,173 +1,118 @@
-# 🛠️ Engineering Team Roadmap & Best Practices
+# 🛠️ Engineering Roadmap & Best Practices
 
-This document outlines the essential practices, tools, and processes that the engineering team should adopt to improve reliability, security, onboarding, and productivity. The focus is on standardizing workflows, enhancing security, ensuring code quality, and streamlining release processes.
-
----
-
-## 1. ✅ Git Workflows (Gitflows)
-
-### Importance:
-- Standardizes collaboration across team members
-- Prevents conflicts and chaos in merging and releases
-- Supports CI/CD pipelines efficiently
-
-### Recommendations:
-- Use a branching model like **Git Flow** or **Trunk-Based Development**
-- Define clear branch types: `main`, `develop`, `feature/*`, `hotfix/*`, `release/*`
-- Protect `main` and `develop` branches with required reviews and passing CI
+This roadmap outlines strategic initiatives, practices, and tooling to enhance developer experience, system reliability, security, and productivity. Organized into five pillars, this guide serves as the foundation for engineering standards and ongoing improvements.
 
 ---
 
-## 2. ✅ Testing and Code Coverage
+## 1. 🧑‍💻 Development Workflow & Tooling
 
-### Importance:
-- Ensures code reliability and prevents regressions
-- Encourages confidence in refactors and contributions
-- Helps detect untested or risky areas of code
+### Git Workflows
+- Adopt **Git Flow** or **Trunk-Based Development**.
+- Enforce protected branches (`main`, `develop`), with PR review + CI required.
+- Standardize branch naming: `feature/*`, `hotfix/*`, `release/*`.
 
-### Recommendations:
-- Enforce unit/integration testing with frameworks relevant to the tech stack (e.g. Jest, Mocha, Pytest)
-- Use coverage tools (e.g. Istanbul, Coverage.py)
-- Set minimum coverage thresholds (e.g. 80%)
-- Include test runs in CI/CD pipelines
+### Testing & Code Coverage
+- Enforce unit and integration tests (e.g. Jest, Pytest).
+- Integrate code coverage tools (e.g. Istanbul, Coverage.py).
+- Set thresholds (e.g. 80%) and include tests in CI.
 
----
+### Linting & Code Formatting
+- Use linters/formatters (e.g. ESLint, Prettier, Black).
+- Include in CI and pre-commit hooks (e.g. Husky, lint-staged).
 
-## 3. ✨ Linting and Code Formatting
+### Autonomous Code Review & Development Agents
+- Integrate autonomous agents to assist with:
+  - Reviewing PRs based on past behavior and team rules.
+  - Bootstrapping features or suggesting improvements.
+- Audit AI suggestions for accuracy and security.
 
-### Importance:
-- Maintains consistent code style across the codebase
-- Catches syntax issues and anti-patterns early
-- Reduces code review friction and cognitive overhead
-
-### Recommendations:
-- Use linters specific to the language stack (e.g. ESLint, Flake8, golangci-lint)
-- Use formatters like Prettier, Black, or gofmt for consistent style
-- Enforce lint and format checks in CI
-- Optionally integrate with pre-commit hooks using tools like Husky or lint-staged
+### Automated Release Flow
+- Use SemVer (`MAJOR.MINOR.PATCH`) + changelog generation.
+- Automate version bumping and tagging (`semantic-release`, GitHub Actions).
 
 ---
 
-## 4. 🔐 VPN & Security for Analytics and Database
+## 2. 🔐 Security & Compliance
 
-### Importance:
-- Prevents exposure of sensitive data and services
-- Restricts access to internal tools and data
-- Aligns with privacy and compliance best practices
+### Secret Management & Rotation
+- Use secret managers (AWS Secrets Manager, Doppler).
+- Enforce 90-day rotation policies.
+- Inject secrets automatically in CI/runtime.
 
-### Recommendations:
-- Use a VPN solution (e.g. Tailscale, WireGuard) for accessing internal services
-- Migrate analytics dashboards and tools (e.g. Metabase, Superset) behind VPN
-- Move databases into private subnets with **access only via VPN**
-- Use security groups, firewall rules, and IAM where applicable
+### Security Enforcement in Repos
+- Run security linting/scanning in all repos:
+  - Detect accidental secrets.
+  - Enforce secure code patterns.
+- Alert on security violations at commit or PR time.
 
----
-
-## 5. 🚀 Onboarding Documentation for Engineering
-
-### Importance:
-- Reduces ramp-up time for new hires
-- Clarifies team expectations and workflows
-- Boosts consistency and confidence in contributions
-
-### Recommendations:
-- Create an `onboarding.md` with:
-  - Environment setup
-  - Access credentials (VPN, repos, dashboards)
-  - Repo structure & tooling
-  - Common commands, CI, and dev scripts
-  - Team contacts and internal links
-- Keep it updated with feedback from new joiners
+### VPN & Access Restrictions
+- Use VPNs (Tailscale, WireGuard) for internal tools.
+- Restrict DBs, analytics dashboards to private subnets behind VPN.
+- Apply IAM policies and firewall rules.
 
 ---
 
-## 6. 📦 Database Change Management (Migrations)
+## 3. 🚀 Infrastructure & Deployment
 
-### Importance:
-- Tracks schema changes safely and consistently
-- Prevents production data issues and drift
+### Helm Configuration Consolidation & GitOps
+- Move all Helm charts to the `nationgraph-services` repo.
+- Transition deployments to ArgoCD for GitOps.
+- Use `ApplicationSet` for version sync automation.
 
-### Recommendations:
-- Use a migrations tool (e.g. Flyway, Liquibase, Prisma Migrate, Alembic)
-- Store migrations in version control alongside app code
-- Integrate DB migrations into CI/CD workflows
-- Require code reviews for all DDL changes
+### Database Change Management (Migrations)
+- Use tools like Prisma Migrate, Alembic.
+- Track schema changes in version control.
+- Require PR/code review for DB migrations.
 
----
-
-## 7. 📊 Dedicated Analytics Database
-
-### Importance:
-- Offloads read-heavy queries from production
-- Enables deeper data analysis without affecting app performance
-
-### Recommendations:
-- Replicate selected production data into an analytics DB (e.g. via CDC tools)
-- Use appropriate tools for querying (e.g. BigQuery, ClickHouse, Redshift)
-- Govern access via VPN and roles
+### Probes in Kubernetes Platform Services
+- Add readiness/liveness probes across all core app services.
+- Ensure probes are used in autoscaling, alerting, and health checks.
 
 ---
 
-## 8. 🤖 Automated Release Flow
+## 4. 📈 Observability & Monitoring
 
-### Importance:
-- Eliminates manual errors in releases
-- Creates reproducible and auditable release history
+### Instrumentation & Metrics
+- Use Prometheus, Grafana, or Datadog.
+- RED metrics (request rate, error rate, duration).
+- Define SLIs/SLOs for critical systems.
 
-### Recommendations:
-- Use SemVer (`MAJOR.MINOR.PATCH`) across projects
-- Auto-increment versions via CI/CD
-- Tag and publish releases based on changelogs or commit messages (e.g. Conventional Commits)
-- Tools: `semantic-release`, GitHub Actions, GitLab CI
+### Alerting & Runbooks
+- Configure alerts via PagerDuty, Opsgenie, or Slack.
+- Maintain service runbooks with linked dashboards.
 
----
-
-## 9. 🔁 Secrets Rotation and Management
-
-### Importance:
-- Reduces risk of credential leaks or abuse
-- Ensures compliance with security policies and standards
-
-### Recommendations:
-- Use secret managers (e.g. AWS Secrets Manager, HashiCorp Vault, Doppler)
-- Rotate sensitive tokens/keys periodically (e.g. every 90 days)
-- Automate secret rotation and injection into environments (CI/CD, runtime)
-- Store no secrets in code or public repositories
+### Service & Dependency Status Pages
+- Publish real-time status pages for:
+  - Core app services
+  - External dependencies (e.g. Stripe, Auth, DB)
+- Include uptime history and incident logs.
 
 ---
 
-## 10. 📦 Helm Configuration Consolidation & ArgoCD Deployment
+## 5. 👥 Enablement & Onboarding
 
-### Importance:
-- Centralizes deployment configuration for better maintainability
-- Aligns with GitOps best practices for repeatable, reliable deployments
+### Onboarding Documentation
+- `onboarding.md` should include:
+  - Local environment setup
+  - Access credentials, VPN, dashboards
+  - Repo structure, CI/CD usage
+  - Common dev scripts
+  - Internal contact list and links
 
-### Recommendations:
-- Move all Helm charts and deployment values into `nationgraph-services` repo
-- Decommission scattered or per-repo Helm files
-- Gradually transition release process to **ArgoCD** for declarative, Git-based deployments
-- Create application manifests and sync policies in `nationgraph-services`
-- Automate version tag updates with `ApplicationSet` or similar ArgoCD tooling
-
----
-
-## 11. 📈 Instrumentation, Metrics, and Alerting
-
-### Importance:
-- Enables visibility into system health and performance
-- Detects issues before they impact users
-- Supports data-driven engineering decisions
-
-### Recommendations:
-- Implement metrics collection via Prometheus, Grafana, or Datadog
-- Instrument key services for latency, error rate, throughput (RED metrics)
-- Define and monitor SLIs/SLOs for critical paths
-- Configure alerting with tools like Alertmanager, PagerDuty, Opsgenie, or Slack integrations
-- Include dashboards as part of operational runbooks
+### Dedicated Analytics DB
+- Replicate prod data (via CDC or ETL) to analytics DB (e.g. BigQuery).
+- Control access via VPN and roles.
 
 ---
 
-## 📅 Roadmap Plan
+## 🔄 Review Process
+- Revisit tools and practices **quarterly**.
+- Collect feedback and pain points from engineers.
+- Focus on simplicity, reliability, and security.
+
+---
+
+## 🗕️ Roadmap Plan
 
 | Quarter       | Initiative                                                                                     |
 |---------------|-----------------------------------------------------------------------------------------------|
@@ -178,9 +123,5 @@ This document outlines the essential practices, tools, and processes that the en
 
 ---
 
-## 📌 Final Notes
-
-- Review all implemented tools quarterly
-- Collect feedback from engineers continuously
-- Keep security, maintainability, and simplicity as guiding principles
+*This roadmap is a living document. Adjustments are expected as team needs evolve.*
 
