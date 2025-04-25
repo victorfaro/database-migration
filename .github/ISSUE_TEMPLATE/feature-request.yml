@@ -1,0 +1,71 @@
+name: 🚀 Feature Request
+description: Suggest a new feature or improvement for this project.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🚀 Feature Request
+
+        Thank you for taking the time to suggest a feature! Please complete the sections below to help us understand and prioritize your request.
+
+  - type: input
+    id: title
+    attributes:
+      label: Feature Title
+      description: A clear and concise title for your feature request.
+      placeholder: e.g. "Add dark mode toggle to dashboard"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: What is the feature about? What problem does it solve or opportunity does it create?
+      placeholder: |
+        Describe the feature in detail. Include any context or background that helps explain its value.
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case / User Story
+      description: Describe a concrete example of how this feature will be used.
+      placeholder: |
+        "As a [role], I want to [action], so that [benefit]."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: If you have ideas on how this feature could be implemented, please share them here.
+      placeholder: |
+        "We could implement this by..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: context
+    attributes:
+      label: Related Context
+      description: Are there related issues, PRs, or discussions?
+      options:
+        - label: I have searched existing issues and discussions
+        - label: This feature request is not a duplicate
+        - label: I have considered alternative approaches
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How urgent or important is this feature?
+      options:
+        - Nice to have
+        - Important
+        - Critical / Blocking
+    validations:
+      required: false

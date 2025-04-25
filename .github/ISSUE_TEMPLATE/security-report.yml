@@ -1,0 +1,25 @@
+name: 🔐 Security Report (Private)
+description: Report a potential security vulnerability.
+labels: [security]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🔐 Security Report (Private Submission Only)
+
+        Thank you for looking out for our project’s security. Please **DO NOT disclose sensitive vulnerabilities here publicly**.
+
+        👉 **Instead, email your report directly to**: `security@your-org.com`  
+        Or use our [responsible disclosure form](https://your-org.com/security-disclosure) (if available).
+
+        This placeholder issue helps us track that reports are coming in — feel free to delete or close it after sending your message privately.
+        
+        _We appreciate your contribution to keeping the project safe!_
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Acknowledgement
+      options:
+        - label: I understand this is not a public place to report vulnerabilities
+        - label: I have contacted the security team through the appropriate private channel

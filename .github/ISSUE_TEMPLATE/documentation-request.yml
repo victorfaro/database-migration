@@ -1,0 +1,68 @@
+name: 📝 Documentation Request
+description: Report missing, outdated, or unclear documentation.
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 Documentation Request
+
+        Use this form to report issues with our documentation — whether it’s missing, unclear, outdated, or incorrect. Your feedback helps improve our dev experience and user onboarding.
+
+  - type: input
+    id: title
+    attributes:
+      label: Documentation Title
+      description: A short, clear title for this documentation request.
+      placeholder: e.g. "Update API auth example for FastAPI"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What’s wrong or missing?
+      description: Describe what the problem is — e.g. the doc is outdated, misleading, hard to understand, or completely missing.
+      placeholder: |
+        "The authentication section of the API docs refers to an old token strategy that’s no longer valid."
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Where did you notice the issue?
+      description: Point to the relevant file, section, or feature.
+      placeholder: |
+        "I was following the `README.md` in the `api` repo and noticed it doesn’t match the new login flow."
+    validations:
+      required: false
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggestion for Improvement
+      description: If you have ideas on how it should be clarified or updated, share them here.
+      placeholder: |
+        "We could add a code snippet showing the new OAuth2 setup using FastAPI’s security utilities."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-Submission Checklist
+      options:
+        - label: I have searched the existing documentation
+        - label: I have checked existing issues for similar reports
+        - label: This is not related to product functionality (consider a feature request instead)
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this documentation change?
+      options:
+        - Nice to have
+        - Important
+        - Critical / Blocking

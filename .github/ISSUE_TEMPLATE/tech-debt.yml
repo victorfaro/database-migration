@@ -1,0 +1,59 @@
+name: 🧹 Technical Debt / Refactor
+description: Track internal refactoring or technical debt cleanup tasks.
+labels: [tech-debt, refactor]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🧹 Technical Debt / Refactor
+
+        Use this form to propose or document work that improves the internal quality of the codebase without changing external behavior — such as refactors, code simplification, dependency cleanup, or tech debt resolution.
+
+  - type: input
+    id: title
+    attributes:
+      label: Refactor / Debt Title
+      description: A clear and concise title for this internal task.
+      placeholder: e.g. "Refactor legacy user auth flow"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Context
+      description: Describe the current pain point, messiness, or tech debt that needs attention.
+      placeholder: |
+        "The current user authentication flow mixes business logic with database access, making it hard to test or update. It’s also missing type hints and uses outdated libraries."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Change / Refactor Scope
+      description: What is the scope of the refactor or cleanup? What are you planning to improve or change?
+      placeholder: |
+        "Split the auth flow into service and repository layers, add Pydantic validation, and introduce unit tests for each component."
+    validations:
+      required: true
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risk / Impact
+      description: Are there any risks or tradeoffs involved in making this change?
+      placeholder: |
+        "The auth flow is tied to a legacy payment module that could break if not refactored carefully. Needs staging environment testing before merging."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Considerations
+      options:
+        - label: This change will not alter external APIs or user-facing behavior
+        - label: Unit or integration tests will be updated or added
+        - label: Linting and static checks will be verified after refactor
+        - label: I’ve reviewed similar past issues or discussions

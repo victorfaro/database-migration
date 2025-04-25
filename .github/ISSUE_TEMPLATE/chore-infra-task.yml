@@ -1,0 +1,49 @@
+name: ⚙️ Chore / Infrastructure Task
+description: For internal or infrastructure-related tasks like CI, scripts, or maintenance.
+labels: [chore, infra]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚙️ Chore / Infrastructure Task
+
+        Use this form to track work that isn’t user-facing but helps maintain the stability, automation, or tooling of the project — such as CI/CD updates, dependency management, or internal scripts.
+
+  - type: input
+    id: title
+    attributes:
+      label: Task Title
+      description: A concise summary of the chore or infra work.
+      placeholder: e.g. "Upgrade GitHub Actions to Node.js 20"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Task Description
+      description: What needs to be done, and why is it important?
+      placeholder: |
+        "CI is currently running on Node.js 18, which will reach end-of-life soon. We need to update workflows and test compatibility."
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope of Work
+      description: What files, services, or systems will this touch?
+      placeholder: |
+        ".github/workflows, Dockerfiles, and testing scripts"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Checklist
+      options:
+        - label: No user-facing changes involved
+        - label: Affects CI/CD, automation, or dependencies
+        - label: Will be tested or verified in staging/dev
+        - label: Low or no regression risk

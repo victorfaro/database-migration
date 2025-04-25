@@ -1,0 +1,83 @@
+name: 🐞 Bug Report
+description: Report something that isn't working as expected.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐞 Bug Report
+
+        Thanks for reporting a bug! Please provide as much detail as possible so we can reproduce and resolve the issue quickly.
+
+  - type: input
+    id: title
+    attributes:
+      label: Bug Title
+      description: A brief title summarizing the bug.
+      placeholder: e.g. "API returns 500 on valid request"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: What happened? What did you expect to happen?
+      placeholder: |
+        Describe the bug in detail. Include any relevant context, links, or screenshots.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the issue?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment Details
+      description: Where did the bug occur?
+      placeholder: e.g. "Chrome 123.0 on macOS", "Python 3.11, FastAPI 0.95"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs or Output
+      description: Paste error messages, stack traces, or logs if available.
+      placeholder: |
+        ```
+        [Error] Something went wrong at line 42
+        ```
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity Level
+      description: How serious is this issue?
+      options:
+        - Minor (does not affect core functionality)
+        - Major (breaks a key feature)
+        - Critical (blocks usage or deployment)
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-Report Checklist
+      options:
+        - label: I have searched existing issues and discussions
+        - label: I have provided steps to reproduce the issue
+        - label: I have included relevant logs or screenshots
