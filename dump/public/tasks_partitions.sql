@@ -19,7 +19,513 @@ CREATE TABLE app.tasks_202505 PARTITION OF app.tasks
     FOR VALUES FROM ('2025-05-01') TO ('2025-06-01')
     PARTITION BY HASH (custom_cell_id);
 
--- Continue with additional month partitions as needed...
+CREATE TABLE app.tasks_202506 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2025-06-01') TO ('2025-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202507 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2025-07-01') TO ('2025-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202508 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2025-08-01') TO ('2025-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202509 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2025-09-01') TO ('2025-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202510 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2025-10-01') TO ('2025-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202511 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2025-11-01') TO ('2025-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202512 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2025-12-01') TO ('2026-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202601 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-01-01') TO ('2026-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202602 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-02-01') TO ('2026-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202603 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-03-01') TO ('2026-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202604 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-04-01') TO ('2026-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202605 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-05-01') TO ('2026-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202606 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-06-01') TO ('2026-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202607 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-07-01') TO ('2026-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202608 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-08-01') TO ('2026-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202609 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-09-01') TO ('2026-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202610 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-10-01') TO ('2026-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202611 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-11-01') TO ('2026-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202612 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2026-12-01') TO ('2027-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202701 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-01-01') TO ('2027-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202702 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-02-01') TO ('2027-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202703 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-03-01') TO ('2027-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202704 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-04-01') TO ('2027-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202705 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-05-01') TO ('2027-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202706 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-06-01') TO ('2027-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202707 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-07-01') TO ('2027-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202708 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-08-01') TO ('2027-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202709 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-09-01') TO ('2027-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202710 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-10-01') TO ('2027-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202711 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-11-01') TO ('2027-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202712 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2027-12-01') TO ('2028-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202801 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-01-01') TO ('2028-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202802 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-02-01') TO ('2028-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202803 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-03-01') TO ('2028-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202804 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-04-01') TO ('2028-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202805 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-05-01') TO ('2028-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202806 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-06-01') TO ('2028-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202807 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-07-01') TO ('2028-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202808 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-08-01') TO ('2028-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202809 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-09-01') TO ('2028-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202810 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-10-01') TO ('2028-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202811 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-11-01') TO ('2028-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202812 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2028-12-01') TO ('2029-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202901 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-01-01') TO ('2029-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202902 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-02-01') TO ('2029-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202903 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-03-01') TO ('2029-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202904 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-04-01') TO ('2029-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202905 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-05-01') TO ('2029-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202906 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-06-01') TO ('2029-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202907 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-07-01') TO ('2029-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202908 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-08-01') TO ('2029-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202909 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-09-01') TO ('2029-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202910 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-10-01') TO ('2029-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202911 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-11-01') TO ('2029-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_202912 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2029-12-01') TO ('2030-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203001 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-01-01') TO ('2030-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203002 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-02-01') TO ('2030-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203003 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-03-01') TO ('2030-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203004 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-04-01') TO ('2030-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203005 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-05-01') TO ('2030-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203006 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-06-01') TO ('2030-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203007 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-07-01') TO ('2030-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203008 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-08-01') TO ('2030-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203009 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-09-01') TO ('2030-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203010 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-10-01') TO ('2030-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203011 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-11-01') TO ('2030-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203012 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2030-12-01') TO ('2031-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203101 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-01-01') TO ('2031-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203102 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-02-01') TO ('2031-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203103 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-03-01') TO ('2031-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203104 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-04-01') TO ('2031-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203105 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-05-01') TO ('2031-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203106 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-06-01') TO ('2031-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203107 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-07-01') TO ('2031-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203108 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-08-01') TO ('2031-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203109 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-09-01') TO ('2031-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203110 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-10-01') TO ('2031-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203111 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-11-01') TO ('2031-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203112 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2031-12-01') TO ('2032-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203201 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-01-01') TO ('2032-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203202 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-02-01') TO ('2032-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203203 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-03-01') TO ('2032-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203204 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-04-01') TO ('2032-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203205 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-05-01') TO ('2032-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203206 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-06-01') TO ('2032-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203207 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-07-01') TO ('2032-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203208 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-08-01') TO ('2032-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203209 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-09-01') TO ('2032-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203210 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-10-01') TO ('2032-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203211 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-11-01') TO ('2032-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203212 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2032-12-01') TO ('2033-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203301 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-01-01') TO ('2033-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203302 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-02-01') TO ('2033-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203303 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-03-01') TO ('2033-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203304 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-04-01') TO ('2033-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203305 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-05-01') TO ('2033-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203306 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-06-01') TO ('2033-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203307 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-07-01') TO ('2033-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203308 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-08-01') TO ('2033-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203309 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-09-01') TO ('2033-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203310 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-10-01') TO ('2033-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203311 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-11-01') TO ('2033-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203312 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2033-12-01') TO ('2034-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203401 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-01-01') TO ('2034-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203402 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-02-01') TO ('2034-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203403 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-03-01') TO ('2034-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203404 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-04-01') TO ('2034-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203405 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-05-01') TO ('2034-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203406 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-06-01') TO ('2034-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203407 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-07-01') TO ('2034-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203408 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-08-01') TO ('2034-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203409 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-09-01') TO ('2034-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203410 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-10-01') TO ('2034-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203411 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-11-01') TO ('2034-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203412 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2034-12-01') TO ('2035-01-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203501 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-01-01') TO ('2035-02-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203502 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-02-01') TO ('2035-03-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203503 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-03-01') TO ('2035-04-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203504 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-04-01') TO ('2035-05-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203505 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-05-01') TO ('2035-06-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203506 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-06-01') TO ('2035-07-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203507 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-07-01') TO ('2035-08-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203508 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-08-01') TO ('2035-09-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203509 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-09-01') TO ('2035-10-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203510 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-10-01') TO ('2035-11-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203511 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-11-01') TO ('2035-12-01')
+    PARTITION BY HASH (custom_cell_id);
+
+CREATE TABLE app.tasks_203512 PARTITION OF app.tasks 
+    FOR VALUES FROM ('2035-12-01') TO ('2036-01-01')
+    PARTITION BY HASH (custom_cell_id);
 
 -- Create a future partition to catch dates beyond explicit definitions
 CREATE TABLE app.tasks_future PARTITION OF app.tasks
