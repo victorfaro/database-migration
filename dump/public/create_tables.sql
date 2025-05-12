@@ -96,14 +96,15 @@ CREATE TABLE app.enrichments (
 	CONSTRAINT enrichments_pkey PRIMARY KEY (id)
 );
 
+-- Main table definition with RANGE partitioning on created_at
 CREATE TABLE app.tasks (
-	id uuid DEFAULT gen_random_uuid() NOT NULL,
-	created_at timestamptz DEFAULT now() NOT NULL,
-	completed_at timestamp NULL,
-	response_payload json NULL,
-	custom_cell_id uuid NOT NULL,
-	CONSTRAINT tasks_pkey PRIMARY KEY (id, custom_cell_id, created_at)
-) PARTITION BY HASH (custom_cell_id);
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamptz DEFAULT now() NOT NULL,
+    completed_at timestamp NULL,
+    response_payload json NULL,
+    custom_cell_id uuid NOT NULL,
+    CONSTRAINT tasks_pkey PRIMARY KEY (id, created_at, custom_cell_id)
+) PARTITION BY RANGE (created_at);
 
 CREATE TABLE app.user (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
