@@ -43,16 +43,6 @@ CREATE TABLE app.cells (
 	CONSTRAINT cells_pkey PRIMARY KEY (id, institution_id)
 ) PARTITION BY HASH (institution_id);
 
--- Create 8 partitions for the cells table
-CREATE TABLE app.cells_p0 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 0);
-CREATE TABLE app.cells_p1 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 1);
-CREATE TABLE app.cells_p2 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 2);
-CREATE TABLE app.cells_p3 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 3);
-CREATE TABLE app.cells_p4 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 4);
-CREATE TABLE app.cells_p5 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 5);
-CREATE TABLE app.cells_p6 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 6);
-CREATE TABLE app.cells_p7 PARTITION OF app.cells FOR VALUES WITH (MODULUS 8, REMAINDER 7);
-
 CREATE TABLE app.custom_columns (
 	id uuid DEFAULT gen_random_uuid() NOT NULL,
 	created_at timestamptz DEFAULT now() NOT NULL,
