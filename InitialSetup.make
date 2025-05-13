@@ -23,6 +23,6 @@ create-roles:
 
 .PHONY: initialize
 initialize:
-	make -f Makefile.InitialSetup create-databases
-	make -f Makefile.InitialSetup create-roles
-	make -f Makefile.InitialSetup create-schema
+	make -f InitialSetup.make create-databases
+	make -f InitialSetup.make create-roles
+	make -f InitialSetup.make create-schema
