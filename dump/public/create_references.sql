@@ -74,3 +74,5 @@ ALTER TABLE app.tags
     FOREIGN KEY (custom_column_id) 
     REFERENCES app.custom_columns(id) 
     ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE app.tags ENABLE ROW LEVEL SECURITY;
