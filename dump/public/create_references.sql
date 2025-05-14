@@ -14,6 +14,18 @@ ALTER TABLE app.cells
     REFERENCES app.institutions(unique_id) 
     ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE app.cells
+    ADD CONSTRAINT cells_task_id_fkey 
+    FOREIGN KEY (task_id) 
+    REFERENCES app.tasks(id) 
+    ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE app.cells
+    ADD CONSTRAINT cells_prev_task_id_fkey 
+    FOREIGN KEY (prev_task_id) 
+    REFERENCES app.tasks(id) 
+    ON DELETE SET NULL ON UPDATE CASCADE;
+
 -- Custom columns table constraints
 ALTER TABLE app.custom_columns
     ADD CONSTRAINT custom_columns_workspace_id_fkey 
