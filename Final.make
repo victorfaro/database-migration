@@ -101,8 +101,8 @@ pg_dump_data_all_institutions_jobs:
 pg_restore_schema_all_institutions_jobs:
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		--disable-triggers \
-		--if-exists \
 		--clean \
+		--if-exists \
 		-j 3 \
 		-F d \
 		--use-set-session-authorization \
