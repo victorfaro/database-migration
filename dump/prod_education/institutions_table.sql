@@ -17,7 +17,7 @@ select
   'higher_education'::text as source_table,
   'Higher Education'::text as label
 from
-  ipeds_2022 hem
+  prod_education.ipeds_2022 hem
 union all
 select
   'k12_'::text || k12.id as unique_id,
