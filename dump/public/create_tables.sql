@@ -73,16 +73,17 @@ CREATE TABLE app.custom_columns_p6 PARTITION OF app.custom_columns FOR VALUES WI
 CREATE TABLE app.custom_columns_p7 PARTITION OF app.custom_columns FOR VALUES WITH (MODULUS 8, REMAINDER 7);
 
 CREATE TABLE app.enrichments (
-	id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-	user_email TEXT,
-	type TEXT,
-	status TEXT,
-	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	modified_at TIMESTAMP WITH TIME ZONE,
-	request_text TEXT,
-	result TEXT,
-	institution_id TEXT,
-	workspace_id UUID
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	user_email text NULL,
+	type text NULL,
+	status text NULL,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	modified_at timestamptz NULL,
+	request_text text NULL,
+	result text NULL,
+	institution_id text NULL,
+	workspace_id uuid NULL,
+	CONSTRAINT enrichments_pkey PRIMARY KEY (id)
 );
 
 -- Main table definition with RANGE partitioning on created_at
