@@ -1,4 +1,4 @@
-set search_path = "public";
+set search_path = "prod_education";
 
 DROP TABLE IF EXISTS app.institutions;
 
@@ -17,7 +17,7 @@ select
   'higher_education'::text as source_table,
   'Higher Education'::text as label
 from
-  prod_education.ipeds_2022 hem
+  ipeds_2022 hem
 union all
 select
   'k12_'::text || k12.id as unique_id,
