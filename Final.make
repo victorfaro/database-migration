@@ -69,7 +69,7 @@ pg_dump_schema_all_institutions_jobs:
 	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--schema-only \
 		--no-acl \
-		-j 3 \
+		-j 1 \
 		-F d \
 		--no-owner \
 		--schema prod_education \
@@ -80,7 +80,7 @@ pg_dump_data_all_institutions_jobs:
 	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--data-only \
 		--no-acl \
-		-j 3 \
+		-j 1 \
 		-F d \
 		--no-owner \
 		--schema prod_education \
