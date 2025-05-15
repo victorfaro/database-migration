@@ -75,6 +75,17 @@ pg_dump_schema_all_institutions_jobs:
 		--schema prod_education \
 		-f ./dump/prod_education/schema
 
+.PHONY: pg_dump_schema_all_institutions_pre_data_jobs
+pg_dump_schema_all_institutions_pre_data_jobs:
+	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
+		--section pre-data \
+		--no-acl \
+		-j 1 \
+		-F d \
+		--no-owner \
+		--schema prod_education \
+		-f ./dump/prod_education/schema
+
 .PHONY: pg_dump_data_all_institutions_jobs
 pg_dump_data_all_institutions_jobs:
 	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
