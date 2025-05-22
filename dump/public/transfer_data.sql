@@ -418,3 +418,36 @@ BEGIN
     SELECT COUNT(*) INTO row_count FROM app.institutions;
     RAISE NOTICE 'Transferred % rows from public.institutions to app.institutions', row_count;
 END $$;
+
+
+TRUNCATE TABLE app.purchase_orders;
+-- Insert data from public.purchase_orders_v2 to app.purchase_orders
+-- Only insert rows where unique_id is not null (required in target schema)
+INSERT INTO app.purchase_orders (
+  id,
+  entity_id,
+  po_id,
+  po_date,
+  total_amount,
+  supplier_name,
+  item_description,
+  input_file,
+  source_table,
+  entity_name,
+  deduped_vendor_id,
+  created_at
+)
+SELECT
+  id,
+  entity_id,
+  po_id,
+  po_date,
+  total_amount,
+  supplier_name,
+  item_description,
+  input_file,
+  source_table,
+  entity_name,
+  deduped_vendor_id,
+  created_at
+FROM public.purchase_orders_v2;
