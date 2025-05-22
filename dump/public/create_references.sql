@@ -1,4 +1,4 @@
--- Foreign Key Constraints for app schema
+- Foreign Key Constraints for app schema
 -- This file contains all foreign key relationships between tables
 
 -- Cells table constraints
@@ -82,3 +82,30 @@ ALTER TABLE app.tags
     ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE app.tags ENABLE ROW LEVEL SECURITY;
+
+
+
+CREATE INDEX IF NOT EXISTS idx_purchase_orders_deduped_vendor_mod on purchase_orders using btree (
+  ((deduped_vendor_id % (100)::bigint)),
+  deduped_vendor_id
+)
+where
+  (deduped_vendor_id is not null);
+
+create index IF not exists idx_purchase_orders_entity_name on app.purchase_orders using btree (entity_name);
+
+create index IF not exists idx_purchase_orders_total_amount on app.purchase_orders using btree (total_amount);
+
+create index IF not exists idx_purchase_orders_po_date on app.purchase_orders using btree (po_date);
+
+create index IF not exists idx_purchase_orders_entity_id on app.purchase_orders using btree (entity_id);
+
+create index IF not exists idx_purchase_orders_input_file on app.purchase_orders using btree (input_file);
+
+create index IF not exists idx_purchase_orders_supplier_name on app.purchase_orders using btree (supplier_name);
+
+create index IF not exists idx_purchase_orders_deduped_vendor_id on app.purchase_orders using hash (deduped_vendor_id);
+
+create index IF not exists idx_purchase_orders_item_description_trgm on app.purchase_orders using gin (item_description gin_trgm_ops);
+
+create index IF not exists purchase_orders_supplier_name_trgm_idx on app.purchase_orders using gin (supplier_name gin_trgm_ops);
