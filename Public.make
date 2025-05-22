@@ -37,6 +37,7 @@ pg_dump_schema_public_jobs:
 		--table notes \
 		--table tags \
 		--table starred_insights \
+		--table purchase_orders_v2 \
 		-f ./dump/public/schema
 
 
@@ -60,6 +61,7 @@ pg_dump_data_public_jobs:
 		--table notes \
 		--table tags \
 		--table starred_insights \
+		--table purchase_orders_v2 \
 		-f ./dump/public/data
 
 

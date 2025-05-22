@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS app.starred_insights CASCADE;
 DROP TABLE IF EXISTS app.tags CASCADE;
 DROP TABLE IF EXISTS app.institutions CASCADE;
 DROP TABLE IF EXISTS app.webtoken CASCADE;
+DROP TABLE IF EXISTS app.purchase_orders CASCADE;
 
 -- Create the institutions table
 CREATE TABLE app.institutions (
@@ -185,3 +186,19 @@ CREATE TABLE app.webtoken (
 	CONSTRAINT webtoken_pkey PRIMARY KEY (sub)
 );
 
+
+CREATE TABLE app.purchase_orders (
+  id uuid not null default gen_random_uuid (),
+  entity_id text not null,
+  po_id text null,
+  po_date date null,
+  total_amount double precision null,
+  supplier_name text null,
+  item_description text null,
+  input_file text null,
+  source_table text null,
+  entity_name text null,
+  deduped_vendor_id bigint null,
+  created_at timestamp with time zone null default now(),
+  constraint purchase_orders_pkey primary key (id)
+);
