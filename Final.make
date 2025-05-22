@@ -69,7 +69,18 @@ pg_dump_schema_all_institutions_jobs:
 	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--schema-only \
 		--no-acl \
-		-j 3 \
+		-j 1 \
+		-F d \
+		--no-owner \
+		--schema prod_education \
+		-f ./dump/prod_education/schema
+
+.PHONY: pg_dump_schema_all_institutions_pre_data_jobs
+pg_dump_schema_all_institutions_pre_data_jobs:
+	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
+		--section pre-data \
+		--no-acl \
+		-j 1 \
 		-F d \
 		--no-owner \
 		--schema prod_education \
@@ -80,7 +91,7 @@ pg_dump_data_all_institutions_jobs:
 	@PGPASSWORD=$(PO_SUPABASE_PASSWORD) pg_dump -h $(PO_SUPABASE_HOST) -U $(PO_SUPABASE_USER) -p $(PO_SUPABASE_PORT) -d $(PO_SUPABASE_DBNAME) \
 		--data-only \
 		--no-acl \
-		-j 3 \
+		-j 1 \
 		-F d \
 		--no-owner \
 		--schema prod_education \
@@ -90,8 +101,8 @@ pg_dump_data_all_institutions_jobs:
 pg_restore_schema_all_institutions_jobs:
 	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 		--disable-triggers \
-		--if-exists \
 		--clean \
+		--if-exists \
 		-j 3 \
 		-F d \
 		--use-set-session-authorization \
@@ -119,9 +130,9 @@ pg_restore_transfer_institutions_data:
 
 .PHONY: restore_prod_education_all
 restore_prod_education_all:
-	make -f Makefile.Final pg_restore_schema_all_institutions_jobs
-	make -f Makefile.Final pg_restore_data_all_institutions_jobs
-	make -f Makefile.Final pg_restore_transfer_institutions_data
+	make -f Final.make pg_restore_schema_all_institutions_jobs
+	make -f Final.make pg_restore_data_all_institutions_jobs
+	make -f Final.make pg_restore_transfer_institutions_data
 	
 
 .PHONY: replace_schemas

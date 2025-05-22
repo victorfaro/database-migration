@@ -1,4 +1,4 @@
-set search_path = "public";
+set search_path = "prod_education";
 
 DROP TABLE IF EXISTS app.institutions;
 
@@ -125,4 +125,68 @@ select
 from
   individual_units iu
 where
-  iu.worksheet_code = '03'::text;
+  iu.unit_type_code = '4'::text
+union all
+select
+  k12_schools.unique_id,
+  k12_schools.source_id,
+  k12_schools.name,
+  k12_schools.state,
+  k12_schools.county,
+  k12_schools.city,
+  k12_schools.street,
+  (k12_schools.state || '-'::text) || k12_schools.county as state_county,
+  (k12_schools.state || '-'::text) || k12_schools.city as state_city,
+  k12_schools.population,
+  'k12_schools'::text as source_table,
+  'K12 School'::text as label
+from
+  k12_schools k12_schools
+union all
+select
+  pa.unique_id,
+  pa.source_id,
+  pa.name,
+  pa.state,
+  pa.county,
+  pa.city,
+  pa.street,
+  (pa.state || '-'::text) || pa.county as state_county,
+  (pa.state || '-'::text) || pa.city as state_city,
+  pa.number_of_officers as population,
+  'police_agencies'::text as source_table,
+  'Police Agency'::text as label
+from
+  police_agencies pa
+union all
+select
+  fa.unique_id,
+  fa.id as source_id,
+  fa.name,
+  fa.state,
+  fa.county,
+  fa.city,
+  fa.street,
+  (fa.state || '-'::text) || fa.county as state_county,
+  (fa.state || '-'::text) || fa.city as state_city,
+  null::bigint as population,
+  'federal_agencies'::text as source_table,
+  'Federal Agency'::text as label
+from
+  federal_agencies fa
+union all
+select
+  fd.unique_id,
+  fd.id as source_id,
+  fd.name,
+  fd.state,
+  fd.county,
+  fd.city,
+  fd.street,
+  (fd.state || '-'::text) || fd.county as state_county,
+  (fd.state || '-'::text) || fd.city as state_city,
+  null::bigint as population,
+  'federal_departments'::text as source_table,
+  'Federal Department'::text as label
+from
+  federal_departments fd;
