@@ -75,8 +75,8 @@ pg_restore_transfer_data:
 .PHONY: dump_purchase_orders_all
 dump_purchase_orders_all:
 	@echo "Started at time: $$(date)"
-	make -f Public.make pg_dump_schema_purchase_orders_jobs
-	make -f Public.make pg_dump_data_purchase_orders_jobs
+	make -f PurchaseOrders.make pg_dump_schema_purchase_orders_jobs
+	make -f PurchaseOrders.make pg_dump_data_purchase_orders_jobs
 	@echo "Finished at time: $$(date)"
 
 
