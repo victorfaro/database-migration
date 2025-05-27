@@ -406,7 +406,7 @@ SELECT
     source_table,
     "label"
 FROM 
-    public.institutions
+    prod_education.all_institutions
 WHERE 
     unique_id IS NOT NULL;  -- Filter out rows with NULL unique_id as it's required in target
 
@@ -451,3 +451,15 @@ SELECT
   deduped_vendor_id,
   created_at
 FROM public.purchase_orders_v2;
+
+-- Log the number of rows transferred
+DO $$
+DECLARE
+    row_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO row_count FROM app.purchase_orders;
+    RAISE NOTICE 'Transferred % rows from public.purchase_orders_v2 to app.purchase_orders', row_count;
+END $$;
+
+
+

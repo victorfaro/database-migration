@@ -1,4 +1,4 @@
-include .env
+# include .env
 
 
 export PO_SUPABASE_DBNAME
@@ -67,10 +67,20 @@ pg_restore_data_purchase_orders_jobs:
 		--data-only \
 		./dump/purchase_orders/data
 
+.PHONY: pg_restore_create_table 
+pg_restore_create_table:
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/purchase_orders/create_table.sql
+
 .PHONY: pg_restore_transfer_data
 pg_restore_transfer_data:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
-		-f ./dump/purchase_orders/transfer_data.sql
+		-f ./dump/purchase_orders/transfer.sql
+
+.PHONY: pg_restore_set_statistics
+pg_restore_set_statistics:
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/purchase_orders/create_references.sql
 
 .PHONY: dump_purchase_orders_all
 dump_purchase_orders_all:
@@ -83,8 +93,17 @@ dump_purchase_orders_all:
 .PHONY: restore_purchase_orders_all
 restore_purchase_orders_all:
 	@echo "Started at time: $$(date)"
-	make -f Public.make pg_restore_custom_types
-	make -f Public.make pg_restore_schema_public_pre_data_jobs
-	make -f Public.make pg_restore_data_public_jobs
-	make -f Public.make pg_restore_create_tables
+	make -f PurchaseOrders.make pg_restore_schema_purchase_orders_pre_data_jobs
+	make -f PurchaseOrders.make pg_restore_data_purchase_orders_jobs
 	@echo "Finished at time: $$(date)"
+
+.PHONY: restore_purchase_orders_final
+restore_purchase_orders_final:
+	@echo "Started at time: $$(date)"
+	make -f PurchaseOrders.make pg_restore_create_table
+	@echo "Started transfer: $$(date)"
+	make -f PurchaseOrders.make pg_restore_transfer_data
+	@echo "Started statistics: $$(date)"
+	make -f PurchaseOrders.make pg_restore_set_statistics
+	@echo "Finished at time: $$(date)"
+

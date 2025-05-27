@@ -59,6 +59,8 @@ CREATE TABLE app.custom_columns (
 	keywords jsonb NULL,
 	start_date date NULL,
 	end_date date NULL,
+	key_factors jsonb NULL,
+	scoring_rubric jsonb NULL,
 	CONSTRAINT custom_columns_pkey PRIMARY KEY (id, workspace_id)
 ) PARTITION BY HASH (workspace_id);
 
