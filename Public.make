@@ -1,4 +1,4 @@
-include .env
+# include .env
 
 
 export PO_SUPABASE_DBNAME
@@ -9,7 +9,7 @@ export PO_SUPABASE_PORT
 export PO_CONN_STRING
 export PO_CONN_STRING=postgresql://$(PO_SUPABASE_USER):$(PO_SUPABASE_PASSWORD)@$(PO_SUPABASE_HOST):$(PO_SUPABASE_PORT)/$(PO_SUPABASE_DBNAME)
 
-export RDS_PASSWORD
+export RDS_PASSWORD 
 export RDS_USER
 export RDS_HOST
 export RDS_PORT
@@ -86,6 +86,11 @@ pg_restore_data_public_jobs:
 		--no-owner \
 		--data-only \
 		./dump/public/data
+
+.PHONY: test_pg
+test_pg:
+	bash -c 'export PGPASSWORD="$(RDS_PASSWORD)"; psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) -c "SELECT 1"'
+
 
 .PHONY: pg_restore_custom_types
 pg_restore_custom_types:

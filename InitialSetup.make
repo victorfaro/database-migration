@@ -1,4 +1,4 @@
-include .env
+# include .env
 
 export RDS_ADMIN_PASSWORD
 export RDS_ADMIN_USER

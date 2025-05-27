@@ -1,4 +1,4 @@
-include .env
+# include .env
 
 
 export PO_SUPABASE_DBNAME
