@@ -91,6 +91,15 @@ pg_restore_data_public_jobs:
 test_pg:
 	bash -c 'export PGPASSWORD="$(RDS_PASSWORD)"; psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) -c "SELECT 1"'
 
+.PHONY: test_pg_supa
+test_pg_supa:
+	PGPASSWORD="$(PO_SUPABASE_PASSWORD)" \
+	psql -h $(PO_SUPABASE_HOST) \
+		-p $(PO_SUPABASE_PORT) \
+		-U $(PO_SUPABASE_USER) \
+		-d $(PO_SUPABASE_DBNAME) \
+		-c "set search_path = 'rfps'; \d;"
+
 
 .PHONY: pg_restore_custom_types
 pg_restore_custom_types:

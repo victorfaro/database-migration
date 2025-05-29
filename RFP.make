@@ -52,10 +52,9 @@ pg_dump_schema_rfp_jobs:
 		-j 3 \
 		-F d \
 		--no-owner \
-		--schema rfps \
-		--table california_news_rfp_dump \
-		--table florida_news_rfp_dump \
-		--table new_york_news_rfp_dump \
+		--table rfps.california_news_rfp_dump \
+		--table rfps.florida_news_rfp_dump \
+		--table rfps.new_york_news_rfp_dump \
 		-f ./dump/rfps/schema
 
 
@@ -67,11 +66,10 @@ pg_dump_data_rfp_jobs:
 		--no-acl \
 		-j 3 \
 		-F d \
-		---schema rfps \
-		--table california_news_rfp_dump \
-		--table florida_news_rfp_dump \
-		--table new_york_news_rfp_dump \
-		--no-owner \	
+		--no-owner \
+		--table rfps.california_news_rfp_dump \
+		--table rfps.florida_news_rfp_dump \
+		--table rfps.new_york_news_rfp_dump \
 		-f ./dump/rfps/data
 
 
@@ -127,3 +125,54 @@ pg_restore_rfps_schema:
 transfer-loads:
 	$(eval FILES = california_news_rfp_dump_rows.sql florida_news_rfp_dump_rows.sql new_york_news_rfp_dump_rows.sql)
 	$(foreach file, $(FILES), scp ~/Downloads/$(file) migration-box:/home/ubuntu/workspace/dump/rfps/data/;)
+
+
+.PHONY: restore_state_data_from_files
+restore_state_data_from_files:
+	@echo "Loading California"
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/rfps/data/california_news_rfp_dump_rows.sql
+
+	@echo "Loading Florida"
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/rfps/data/florida_news_rfp_dump_rows.sql
+
+	@echo "Loading New York"
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/rfps/data/new_york_news_rfp_dump_rows.sql
+
+
+.PHONY: restore_schema_rfps
+restore_schema_rfps:
+	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		--section pre-data \
+		--disable-triggers \
+		--if-exists \
+		--clean \
+		-j 3 \
+		-F d \
+		--use-set-session-authorization \
+		--no-owner \
+		./dump/rfps/schema
+
+
+.PHONY: restore_data_rfps
+restore_data_rfps:
+	PGPASSWORD=$(RDS_PASSWORD) pg_restore -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		--disable-triggers \
+		-j 3 \
+		-F d \
+		--use-set-session-authorization \
+		--no-owner \
+		--data-only \
+		./dump/rfps/data
+
+
+.PHONY: transfer_data
+transfer_data:
+	@echo "Transfer data to final table app.rfp"
+	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
+		-f ./dump/rfps/transfer.sql
+
+
+
