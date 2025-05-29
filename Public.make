@@ -13,7 +13,7 @@ export RDS_PASSWORD
 export RDS_USER
 export RDS_HOST
 export RDS_PORT
-export RDS_DATABASE=dev
+export RDS_DATABASE
 export RDS_CONN=postgresql://$(RDS_USER):$(RDS_PASSWORD)@$(RDS_HOST):$(RDS_PORT)/$(RDS_DATABASE)
 
 

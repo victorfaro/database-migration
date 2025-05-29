@@ -73,15 +73,15 @@ pg_restore_transfer_institutions_data:
 		
 .PHONY: dump_prod_education_all
 dump_prod_education_all:
-	make -f Final.make pg_dump_schema_all_institutions_jobs
-	make -f Final.make pg_dump_data_all_institutions_jobs
+	make -f ProdEducation.make pg_dump_schema_all_institutions_jobs
+	make -f ProdEducation.make pg_dump_data_all_institutions_jobs
 
 
 .PHONY: restore_prod_education_all
 restore_prod_education_all:
-	make -f Final.make pg_restore_schema_all_institutions_jobs
-	make -f Final.make pg_restore_data_all_institutions_jobs
-	make -f Final.make pg_restore_transfer_institutions_data
+	make -f ProdEducation.make pg_restore_schema_all_institutions_jobs
+	make -f ProdEducation.make pg_restore_data_all_institutions_jobs
+	make -f ProdEducation.make pg_restore_transfer_institutions_data
 
 
 .PHONY: pg_dump_institutions_target
