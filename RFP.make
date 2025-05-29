@@ -120,3 +120,10 @@ dump_rfp_all:
 pg_restore_rfps_schema:
 	PGPASSWORD=$(RDS_PASSWORD) psql -h $(RDS_HOST) -p $(RDS_PORT) -U $(RDS_USER) -d $(RDS_DATABASE) \
 	-f ./dump/rfps/schema/ddls.sql
+
+
+
+.PHONY: transfer-loads
+transfer-loads:
+	$(eval FILES = california_news_rfp_dump_rows.sql florida_news_rfp_dump_rows.sql new_york_news_rfp_dump_rows.sql)
+	$(foreach file, $(FILES), scp ~/Downloads/$(file) migration-box:/home/ubuntu/workspace/dump/rfps/data/;)
